@@ -1,0 +1,47 @@
+#!/bin/bash
+echo "----Ejemplos-----"
+homejail=home/fabian
+
+#Poblando
+echo "*** Populating $homejail"
+#toda la instruccion escribe en en la ruta dada
+cat <<EOF > /home/bocajail/tmp/populate.sh
+#!/bin/bash
+#-t especifica el tipo de sistema de archivos, por lo general, no tiene que ser especificado.
+#montaje seleccionara automaticamente los patrones correctos
+#sistema de archivos proc
+#divice /dev/sda3 como proc
+#punto de montaje es /proc para desmontar un umount
+mount -t proc proc /proc
+#para lenguaje o idioma español
+echo "LC_ALL=en_US.UTF-8" > /etc/default/locale
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+#ejecutamos los script para actualizar
+/usr/sbin/locale-gen
+/usr/sbin/update-locale
+#actulizamos nuestro repositorio jail
+apt-get -y update
+#para repositorios
+apt-get -y install software-properties-common
+add-apt-repository -y ppa:icpc-latam/maratona-linux
+apt-get -y update
+apt-get -y upgrade
+apt-get -y install maratona-linguagens --no-install-recommends --allow-unauthenticated
+apt-get -y clean
+#desmontamos
+umount /proc
+EOF
+mkdir -p /bocajail/usr/bin
+#copiamos el archivo safeexec a nuestro directorio creado bin
+[ -x /usr/bin/safeexec ] && cp -a /usr/bin/safeexec /bocajail/usr/bin/
+cp -f /etc/apt/sources.list $homejail/etc/apt/
+chmod 755 /home/bocajail/tmp/populate.sh
+
+export LC_ALL=en_US.UTF-8
+#cambiamos el root a homejail y ejecutamos el script
+cd / ; chroot $homejail /tmp/populate.sh
+
+
+
+
+echo fin
