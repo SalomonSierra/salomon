@@ -1,4 +1,4 @@
-<!-- 1631890229 --> <?php exit; ?>	0
+<!-- 1632686900 --> <?php exit; ?>	0	lechuga	33F404
 <br>
 <table class="table table-hover">
  <thead>
@@ -12,9 +12,27 @@
  </tr>
  </thead>
 <tbody>
+ <tr>
+  <td>868779007</td>
+  <td>241</td>
+  <td>A</td>
+  <td>Java</td>
+  <td class="text-success">YES - Accepted <img alt="lechuga" width="15" src="/salomon/balloons/09f7dde6e1d62020b2a6420ea7f8dcc0.png" /></td>
+<td><a href="../filedownload.php?oid=16596&filename=cXl5T1VubWo0UEw2YitmTVZKZng1RlBPNDNaRkFEM2JDTkVmbUVpVnB0VFdpemtsaldQVFp3eU1uZ084Y1hrRUNsd1pNTHhjQXZsZkdEZVFxbmJ1Vi95c203ZEl4YklpQXBmVi9VNktGbUU9&check=f6104e8b06184a0dafdc383be26c41726656156ad389c3bc0ba2c816926802e3#toolbar=0">print.java</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary" style="font-weight:bold" onClick="window.open('../filewindow.php?oid=16596&filename=TjkvNGZUM1Z2R0gwVFNaTWh2bmg1TUk0bzdDM3JhMGhlRk9LYWN5cCtIdzlMNm1IWC9HdVVOaGZtV2kxSjVNUHJLc3R1Ujcrb1pTZW9WVDA1UUhkcUJ4SzU1MTNUczRDajg1NFNmSDUyU2s9&check=f6104e8b06184a0dafdc383be26c41726656156ad389c3bc0ba2c816926802e3#toolbar=0', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')">Ver Codigo</a>
+</td>
+ </tr>
+ <tr>
+  <td>869001308</td>
+  <td>242</td>
+  <td>B</td>
+  <td>Java</td>
+  <td class="text-primary">Not answerd yet</td>
+<td><a href="../filedownload.php?oid=16600&filename=YzF2L3ZCT243TEV5emxNSWxXRkxmdnVRK01tcStGandBaGNXeDM3T2EvL1IvRGhRdHhOMWszWTVqZ09DZm9ROHdKbmRRcGVSTWlwUi9nSTY1UjR4R2c1UUg3bGEvK1NsNEFZbjBUd2tJSzQ9&check=4ccc50ab34bbc79c1b1be65dc9afd302a1e652eb8b77d4662970c056aaf7dca9#toolbar=0">suma.java</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary" style="font-weight:bold" onClick="window.open('../filewindow.php?oid=16600&filename=V3ZpTFhUNWZTQUI4Y0VJa0dGZ25NSlZGWXB0VXJxdlNaQ0IvZXI1bDBUQUxROGE1KzZFd2VRc1o2SmptQWlvZCtHVmNrQVc1WXRFT0t5N2pLMUJ6UThUQ00wVUZMMENPR25reXFPZTZITW89&check=4ccc50ab34bbc79c1b1be65dc9afd302a1e652eb8b77d4662970c056aaf7dca9#toolbar=0', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')">Ver Codigo</a>
+</td>
+ </tr>
 </tbody>
 </table>
-<br><center><b><font color="#ff0000">AUN NO ENVIASTE NINGUN PROBLEMA</font></b></center><br><br><center><b>Para enviar un programa, simplemente complete los siguientes campos:</b></center>
+<br><br><center><b>Para enviar un programa, simplemente complete los siguientes campos:</b></center>
 <div class="container">
 <form name="form1" enctype="multipart/form-data" method="post" action="run.php">
   <input type=hidden name="confirmation" value="noconfirm" />
@@ -25,6 +43,10 @@
            <div class="col-sm-8">
                <select name="problem" onclick="Arquivo()">
 <option selected value="-1"> -- </option>
+<option value="1">A</option>
+<option value="2">B</option>
+<option value="3">C</option>
+<option value="4">D</option>
 	</select>
            </div>
        </div>

@@ -1,4 +1,4 @@
-<!-- 1631306218 --> <?php exit; ?>	0
+<!-- 1632331050 --> <?php exit; ?>	0
 <br>
 <table class="table table-hover">
  <thead>
@@ -12,18 +12,9 @@
  </tr>
  </thead>
 <tbody>
- <tr>
-  <td>59276301</td>
-  <td>6</td>
-  <td>A</td>
-  <td>C++11</td>
-  <td class="text-danger">NO - Wrong answer</td>
-<td><a href="../filedownload.php?oid=68873&filename=TlNsc01tQklsMW02OUdCdkkrUFlzaFZOeERUZ09WZkUxTGpuK1V0WHJUcUpIWFdZeUlLcEh5MTlnLzVXK1hUVk5nSXlaWUhJQVZYSmc2SVlsNkI3Tld5WVRaU0F3VXNEWGY5ZmtaL052MlU9&check=47ceaabd52e1ebb78ac279ed42a27a3ef97cdf9b3c6c1131dc3c0f550b9a69a1#toolbar=0">calle1.cpp</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary" style="font-weight:bold" onClick="window.open('../filewindow.php?oid=68873&filename=Z082VmY2ZXYrOTlHaW9DWGJlKzVYV2RFR041azFmbFR6bXpBSmlVdXhmUkZPWGkxWTloV291WXpBdWpaSDdCZWFpcmNadlBQMXg5Y0F6VGJKUzZsSFhUUkNvaFUyNlc3T3NpQytGZGZpN1E9&check=47ceaabd52e1ebb78ac279ed42a27a3ef97cdf9b3c6c1131dc3c0f550b9a69a1#toolbar=0', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')">Ver Codigo</a>
-</td>
- </tr>
 </tbody>
 </table>
-<br><br><center><b>Para enviar un programa, simplemente complete los siguientes campos:</b></center>
+<br><center><b><font color="#ff0000">AUN NO ENVIASTE NINGUN PROBLEMA</font></b></center><br><br><center><b>Para enviar un programa, simplemente complete los siguientes campos:</b></center>
 <div class="container">
 <form name="form1" enctype="multipart/form-data" method="post" action="run.php">
   <input type=hidden name="confirmation" value="noconfirm" />

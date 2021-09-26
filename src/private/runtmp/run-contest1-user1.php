@@ -1,4 +1,4 @@
-<!-- 1631886456 --> <?php exit; ?>	0
+<!-- 1632361484 --> <?php exit; ?>	0	lechuga	33F404
 <br>
 <table class="table table-hover">
  <thead>
@@ -12,9 +12,18 @@
  </tr>
  </thead>
 <tbody>
+ <tr>
+  <td>308030201</td>
+  <td>67</td>
+  <td>A</td>
+  <td>C++11</td>
+  <td class="text-success">YES - Accepted <img alt="lechuga" width="15" src="/salomon/balloons/09f7dde6e1d62020b2a6420ea7f8dcc0.png" /></td>
+<td><a href="../filedownload.php?oid=16560&filename=bUR2THFVZEdRWlhCYlh1U05Kb0E1akFnZGQ3VFQ3U25WWXpWaUNhazcvVTYxeXFxV3Z0VTFxSkVzcWtoR0ZqQklFbTF6bjhVMU5uUUlWbER3TGdNbkJTOXNZLzgzaFBBTFlRR1l5ajk1WTA9&check=4776c3132e43a7885f67803771d7940eaf34138c49ff93348adbba62d48ec96f#toolbar=0">print.cpp</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary" style="font-weight:bold" onClick="window.open('../filewindow.php?oid=16560&filename=YVRhem8rb1BBYzM4WGo0RU5rK1lzOUtnd3IxOHNIV1Qxb210MUhrOG9OeFVDQ21xcko1RFBxSFVyeTQzbzZhWWhIcE1RN1Fnc1orRVRIYlNNb1BtZ0dQbGx0VnZ0VndFWmdub01uUVFreXc9&check=4776c3132e43a7885f67803771d7940eaf34138c49ff93348adbba62d48ec96f#toolbar=0', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')">Ver Codigo</a>
+</td>
+ </tr>
 </tbody>
 </table>
-<br><center><b><font color="#ff0000">AUN NO ENVIASTE NINGUN PROBLEMA</font></b></center><br><br><center><b>Para enviar un programa, simplemente complete los siguientes campos:</b></center>
+<br><br><center><b>Para enviar un programa, simplemente complete los siguientes campos:</b></center>
 <div class="container">
 <form name="form1" enctype="multipart/form-data" method="post" action="run.php">
   <input type=hidden name="confirmation" value="noconfirm" />
@@ -26,6 +35,8 @@
                <select name="problem" onclick="Arquivo()">
 <option selected value="-1"> -- </option>
 <option value="1">A</option>
+<option value="2">B</option>
+<option value="3">C</option>
 	</select>
            </div>
        </div>
