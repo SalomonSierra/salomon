@@ -1535,7 +1535,7 @@ function DBContestInfoAll() {
     $c = DBConnect();
     $sql = "select distinct c.contestnumber as number, c.contestprivate as private, " .
         "c.contestname as name, c.conteststartdate as startdate, c.contestactive as active, c.contestprivate as private " .
-        "from contesttable as c where c.contestnumber!=0 order by c.contestnumber";
+        "from contesttable as c where c.contestnumber!=0 order by c.contestnumber desc";
     $r = DBExec($c, $sql, "DBContestInfoAll(get contests)");
     $n = DBnlines($r);
     $a = array();

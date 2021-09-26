@@ -27,16 +27,22 @@ require('header.php');
 $ct = DBContestInfoAll();
 $ac=DBGetActiveContest();
 for ($i=0; $i<count($ct); $i++) {
-
-	if($ct[$i]["private"]=='f'){
-		echo " <tr class=\"d-flex table-success\">\n";
+	//-1000000000
+	list($clockstr,$clocktype)=siteclock2($ct[$i]["number"]);
+	if($clocktype==-1000000000){
+		echo " <tr class=\"d-flex table-secondary\">\n";
 	}else{
-		echo " <tr class=\"d-flex table-warning\">\n";
+		if($ct[$i]["private"]=='f'){
+			echo " <tr class=\"d-flex table-success\">\n";
+		}else{
+			echo " <tr class=\"d-flex table-warning\">\n";
+		}
 	}
+
 //  echo "  <td nowrap>" . $prob[$i]["number"] . "</td>\n";
   echo "  <td class=\"col-1\">" .$ct[$i]["number"]."</td>\n";
   echo "  <td class=\"col-5\"><a href=\"#\" data-toggle=\"modal\"data-target=\"#loginModal\">" . $ct[$i]["name"] . "&nbsp;</a></td>\n";
-  list($clockstr,$clocktype)=siteclock2($ct[$i]["number"]);
+
   echo "  <td class=\"col-3\">" . $clockstr . "&nbsp;</td>\n";
   if($ct[$i]["private"]=='t'){
 	  echo "  <td class=\"col-3 text-danger\">Privado</td>\n";
