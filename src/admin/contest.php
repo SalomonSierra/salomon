@@ -124,15 +124,20 @@ $cs=DBAllContestInfo();
 $ac=DBGetActiveContest();
 for ($i=0; $i<count($cs); $i++) {
     $cnumber=$cs[$i]["contestnumber"];
-	if($ac["contestnumber"]==$cnumber){
-		echo " <tr class=\"d-flex table-success\">\n";
+    list($clockstr,$clocktype)=siteclock2($cs[$i]["contestnumber"]);
+	if($clocktype==-1000000000){
+		echo " <tr class=\"d-flex table-secondary\">\n";
 	}else{
-		echo " <tr class=\"d-flex table-warning\">\n";
+		if($cs[$i]["contestprivate"]=='f'){
+			echo " <tr class=\"d-flex table-success\">\n";
+		}else{
+			echo " <tr class=\"d-flex table-warning\">\n";
+		}
 	}
 //  echo "  <td nowrap>" . $prob[$i]["number"] . "</td>\n";
   echo "  <td class=\"col-1\">" .$cs[$i]["contestnumber"]."</td>\n";
   echo "  <td class=\"col-5\"><a href=\"problemcontest.php?contest=$cnumber\">" . $cs[$i]["contestname"] . "&nbsp;</a></td>\n";
-  list($clockstr,$clocktype)=siteclock2($cs[$i]["contestnumber"]);
+
   echo "  <td class=\"col-2\">" . $clockstr . "&nbsp;</td>\n";
   if($cs[$i]["contestprivate"]=='t'){
 	  echo "  <td class=\"col-2 text-danger\">Privado</td>\n";
