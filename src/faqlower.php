@@ -12,4 +12,5 @@
         <p class="text-white text-justify"> <span class="text-primary">Not answerd yet: </span>Significa que aun no tines respuesta del juez a tu solución enviado.</p>
 
     </div>
+
 </div>
