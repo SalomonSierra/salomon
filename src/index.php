@@ -13,11 +13,14 @@ include 'header.php';
 			<div class="col-lg-8 mb-4">
 				<h1 class="mt-4 mb-3 font-italic">JUEZ VIRTUAL SALOMON</h1>
 				Es un juez virtual para programacion competitiva, desarrollado como proyecto de grado para la carrera Ing. Informatica por el Unv. Fabian Sierra A.
+
+		        <iframe width="560" height="315" src="https://www.youtube.com/embed/L8SHEDxY3UE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 			</div>
+
 		</div>
-
-		<a href="../doc/index.php">doc</a>
-
+		<!--<a href="../doc/index.php">doc</a>-->
+		<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScMISgpOFbfu76iKhGhHGR9mn74TNm9KMM6nqyserHh1IGd4Q/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
 
 
 

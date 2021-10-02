@@ -10,6 +10,8 @@ require('header.php');
         <div class="col-lg-8 mb-4">
             <h1 class="mt-4 mb-3 font-italic">SALOMON <span class="text-secondary">Team</span> </h1>
             Es un juez virtual para programacion competitiva, desarrollado como proyecto de grado para la carrera Ing. Informatica por el Unv. Fabian Sierra A.
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScMISgpOFbfu76iKhGhHGR9mn74TNm9KMM6nqyserHh1IGd4Q/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+
         </div>
     </div>
 
