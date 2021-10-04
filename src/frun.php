@@ -791,7 +791,7 @@ function DBAllRuns($order='run',$contest='') {
     else if ($contest=='')
         $sql .="r.runnumber desc";
     else
-        $sql .= "r.rundatediff desc";//rundatediff de forma desendente
+        $sql .= "r.updatetime, r.rundatediff desc";//rundatediff de forma desendente
 
 
 
