@@ -1,5 +1,9 @@
 src/private/comp
 src/private/problemtmp
 src/private/remotescores
+<<<<<<< HEAD
+=======
+src/private/runslog
+>>>>>>> b89609cd0463d6ff34a58bfad3b563cb6317bf86
 src/private/runtmp
 src/private/scoretmp
