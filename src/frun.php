@@ -770,7 +770,7 @@ function DBAllRuns($order='run',$contest='') {
 		"p.problemname as problem, p.problemnumber, r.runstatus as status, l.langname as language, l.langextension as extension, " .
 		"a.yes as yes, p.problemcolor as color, p.problemcolorname as colorname, " .
 
-		"a.runanswer as answer, r.runfilename as filename, " .
+		"a.runanswer as answer, r.runfilename as filename, r.updatetime as updatetime, " .
 		"r.autobegindate as autobegin, r.autoenddate as autoend, r.autoanswer as autoanswer ".
 		"from runtable as r, problemtable as p, langtable as l, answertable as a, usertable as u " .
 		"where " .
@@ -791,7 +791,7 @@ function DBAllRuns($order='run',$contest='') {
     else if ($contest=='')
         $sql .="r.updatetime desc";
     else
-        $sql .= "r.runnumber desc";//rundatediff de forma desendente
+        $sql .= "r.rundatediff desc";//rundatediff de forma desendente
 
 
 
