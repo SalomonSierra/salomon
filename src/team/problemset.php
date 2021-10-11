@@ -37,7 +37,9 @@ for ($i=0; $i<count($prob); $i++) {
   echo "  <td>" . $prob[$i]["basefilename"] . "&nbsp;</td>\n";
   //$fabian="fabian";
   echo "  <td>" . $prob[$i]["fullname"] . "&nbsp;</td>\n";
-  echo "  <td>" . $prob[$i]["fullname"] . "</td>\n";
+  //para setter
+  $userinfo=DBUserInfo($prob[$i]["user"]);
+  echo "  <td>".$userinfo["username"]."</td>";
   if (isset($prob[$i]["descoid"]) && $prob[$i]["descoid"] != null && isset($prob[$i]["descfilename"])) {
     echo "  <td><a href=\"#\" class=\"btn btn-primary\" style=\"font-weight:bold\" onClick=\"window.open('../filewindow0.php?".filedownload($prob[$i]["descoid"], $prob[$i]["descfilename"])."', 'Ver - PROBLEMA', 'width=680,height=600,scrollbars=yes,resizable=yes')\">Ver Problema</a></td>\n";
   }

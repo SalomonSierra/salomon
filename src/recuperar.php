@@ -1,31 +1,94 @@
 <?php
 include 'header.php';
+// http://localhost/salomon/recuperar.php?u=prueba&p=173af653133d964edfc16cafe0aba33c8f500a07f3ba3f81943916910c257705
+if(isset($_POST["name"]) && isset($_POST["passwordn1"]) && isset($_POST["confirmation"]) && $_POST["confirmation"]=="confirm"){
+
+    $pass= bighexsub($_POST["passwordn1"],myhash('fabians7'));
+
+    while(strlen($pass) < strlen(myhash('fabians7')))
+        $pass = '0' . $pass;
+    $verf=DBResPassword($_POST["name"],$pass);//funcion para recuperar contraseña
+    if($verf){
+        MSGError("Se restableció tu contraseña correctamente, inicia sesion");
+
+    }else{
+        MSGError("Error al restablecer tu contraseña");
+    }
+    echo "Yes";//aceptado
+    ForceLoad("index.php");
+
+
+}
+
+if(isset($_GET["u"])&&isset($_GET["p"])){
+    $u=DBUserInfoName($_GET["u"]);
+    $pass=myhash($u["userpassword"]);
+    if($pass==$_GET["p"]){
 ?>
 
 
 
 	<div class="container">
-		<br><br><br>
-		<div class="row">
-			<div class="col-lg-4 mb-4">
-				<img class="img-fluid" src="images/salomon.png"/>
-			</div>
-			<div class="col-lg-8 mb-4">
-				<h1 class="mt-4 mb-3 font-italic">JUEZ VIRTUAL SALOMON</h1>
-				Es un juez virtual para programacion competitiva, desarrollado como proyecto de grado para la carrera Ing. Informatica por el Unv. Fabian Sierra A.
+        <br><br><br>
+        <div class="col-6">
+            <form name="form3" action="recuperar.php" method="post">
+              <input type=hidden name="confirmation" value="noconfirm" />
+              <input type=hidden name="name" value="<?php echo $_GET["u"]; ?>" />
 
-		        <iframe width="560" height="315" src="https://www.youtube.com/embed/L8SHEDxY3UE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <script language="javascript">
+                function conf3() {
 
-			</div>
+                  document.form3.passwordn1.value = bighexsoma(js_myhash(document.form3.passwordn1.value),js_myhash('fabians7'));
+         		  document.form3.passwordn2.value = bighexsoma(js_myhash(document.form3.passwordn2.value),js_myhash('fabians7'));
+                  if(document.form3.passwordn2.value==document.form3.passwordn1.value){
+                      if (confirm("Confirm?")) {
+                          document.form3.confirmation.value='confirm';
 
-		</div>
-		<!--<a href="../doc/index.php">doc</a>-->
-		<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScMISgpOFbfu76iKhGhHGR9mn74TNm9KMM6nqyserHh1IGd4Q/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+                      }
+                  }else{
+                      alert("Passwords don't match.");
+                  }
 
+                }
+                function conf5() {
+                  document.form3.confirmation.value='noconfirm';
+                }
+              </script>
 
+              <div class="form-group row">
+                  <label for="passwordn1" class="col-sm-4 col-form-label">Password:</label>
+                  <div class="col-sm-8">
+                      <input type="password" name="passwordn1" id="passwordn1" class="form-control" value="" size="20" maxlength="200" />
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="passwordn2" class="col-sm-4 col-form-label">Retype Password:</label>
+                  <div class="col-sm-8">
+                      <input type="password" name="passwordn2" id="passwordn2" class="form-control" value="" size="20" maxlength="200" />
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <input type="submit" class="btn btn-primary"name="Submit" value="Send" onClick="conf3()">&nbsp;
+
+                  <input type="submit" class="btn btn-primary"name="Cancel" value="Cancel" onClick="conf5()">
+
+              </div>
+            </form>
+        </div>
 
 
 	</div>
+
+<?php
+    }else{
+        echo "Error al restablecer Contraseña";
+    }
+}else{
+    echo "Error al restablecer Contraseña no existen parametros";
+}
+?>
+
 
 
 <!--PIE DE PAGINA......PAGINA........PAGINA-->
@@ -209,7 +272,7 @@ $(document).ready(function(){
 				   success:function(data)
 				   {
 					   alert(data);
-					  
+                       
 				   }
 			  });
 		 }

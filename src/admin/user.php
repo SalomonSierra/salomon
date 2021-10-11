@@ -32,7 +32,7 @@ if(($ct = DBContestInfo(0)) == null)
         ForceLoad("../index.php");//index.php
 
 
-if (isset($_POST["username"]) && isset($_POST["userfullname"]) && isset($_POST["userdesc"]) && isset($_POST["userip"]) &&
+if (isset($_POST["username"]) && isset($_POST["userfullname"]) && isset($_POST["useremail"]) && isset($_POST["userdesc"]) && isset($_POST["userip"]) &&
     isset($_POST["usernumber"]) && isset($_POST["userenabled"]) &&
     isset($_POST["usermultilogin"]) && isset($_POST["usertype"]) && isset($_POST["confirmation"]) &&
     isset($_POST["passwordn1"]) && isset($_POST["passwordn2"]) && isset($_POST["passwordo"]) && $_POST["confirmation"] == "confirm") {
@@ -43,6 +43,7 @@ if (isset($_POST["username"]) && isset($_POST["userfullname"]) && isset($_POST["
 	$param['enabled'] = htmlspecialchars($_POST["userenabled"]);
 	$param['multilogin'] = htmlspecialchars($_POST["usermultilogin"]);
 	$param['userfull'] = htmlspecialchars($_POST["userfullname"]);
+	$param['useremail'] = htmlspecialchars($_POST["useremail"]);
 	$param['userdesc'] = htmlspecialchars($_POST["userdesc"]);
 	$param['type'] = htmlspecialchars($_POST["usertype"]);
 	$param['permitip'] = htmlspecialchars($_POST["userip"]);
@@ -300,6 +301,14 @@ El archivo debe estar en el formato definido en el manual de administración.</b
               <input type="text" name="userfullname" id="userfullname" class="form-control" value="<?php if(isset($u)) echo $u["userfullname"]; ?>" maxlength="200" />
           </div>
       </div>
+      <!--PARA EMAIL-->
+      <div class="form-group row">
+          <label for="useremail" class="col-sm-4 col-form-label">User Email:</label>
+          <div class="col-sm-8">
+              <input type="text" name="useremail" id="useremail" class="form-control" value="<?php if(isset($u)) echo $u["useremail"]; ?>" maxlength="200" />
+          </div>
+      </div>
+
       <div class="form-group row">
           <label for="userdesc" class="col-sm-4 col-form-label">User Description:</label>
           <div class="col-sm-8">

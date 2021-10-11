@@ -130,7 +130,7 @@ function DBLogIn($name, $pass, $msg=true){
     }
 
     ///retorna un registro de una cosulta en array asociativo en caso de no existo lanza un error
-    $a=DBGetRow("select *from usertable where username='$name'", 0, null, "DBLogIn(get user)");
+    $a=DBGetRow("select *from usertable where username='$name' or useremail='$name'", 0, null, "DBLogIn(get user)");
     if($a == null){
         if($msg){
             //funcion para generar el nivel de registro y prioridad par el sistema y si registra a logtable
@@ -177,13 +177,13 @@ function DBLogIn($name, $pass, $msg=true){
 
     if($a["usertype"] == "team") {
         $r=DBExec($c,"update usertable set userip='".$gip."', updatetime=".time().",".
-            "userlastlogin=$t, usersession='".session_id()."' where username='$name'", "DBLogIn(update session)");
+            "userlastlogin=$t, usersession='".session_id()."' where username='$name' or useremail='$name'", "DBLogIn(update session)");
     }else{
         DBExec($c,"begin work");
-        $sql="update usertable set usersessionextra='".session_id()."' where username='$name' and (usersessionextra='' or userip != '".$gip."' or userlastlogin<=".($t-86400).")";
+        $sql="update usertable set usersessionextra='".session_id()."' where (username='$name' or useremail='$name') and (usersessionextra='' or userip != '".$gip."' or userlastlogin<=".($t-86400).")";
         DBExec($c,$sql);
         DBExec($c,"update usertable set userip='".$gip."', updatetime=".time().", userlastlogin=$t, ".
-                "usersession='".session_id()."' where username='$name'", "DBLogIn(update user)");
+                "usersession='".session_id()."' where username='$name' or useremail='$name'", "DBLogIn(update user)");
 
         DBExec($c,"commit work");
 
@@ -195,8 +195,51 @@ function DBLogIn($name, $pass, $msg=true){
 
 
 }
-//
+//funcion para sacar info de la usuario para recuperar contraseña
 
+function DBRecIn($name, $msg=true){
+    ////retorna un registro de una cosulta en array asociativo en caso de no existo lanza un error
+    $b=DBGetRow("select *from contesttable where contestnumber=0", 0, null, "DBLogIn(get template contest)");
+    if($b == null){
+        //revisa si hay contest y site y user tambien los ips de user y lo actualiza
+        //retorna la informacion del usuario
+        return false;
+    }
+
+    ///retorna un registro de una cosulta en array asociativo en caso de no existo lanza un error
+    $a=DBGetRow("select *from usertable where username='$name' or useremail='$name'", 0, null, "DBLogIn(get user)");
+    if($a == null){
+        if($msg){
+            //funcion para generar el nivel de registro y prioridad par el sistema y si registra a logtable
+            LOGLevel("Usuario $name intento recuperar contraseña pero no existe",2);
+            echo "Usuario no existe";
+            //MSGError("User does not exist or incorrect password");//lanza el mesaje en alert('')
+        }
+        return false;
+    }
+    if($a["userenabled"]=='f'){
+        if($msg){
+            //funcion para generar el nivel de registro y prioridad par el sistema y si registra a logtable
+            LOGLevel("Usuario $name intento recuperar  contraseña pero esta inactivo",2);
+            echo "Usuario Inactivo";
+            //MSGError("User does not exist or incorrect password");//lanza el mesaje en alert('')
+        }
+        return false;
+    }
+    ////esta funcion retorna el registro de usuario y tambien si cambio o no hashpass = true
+    $a =DBUserInfo($a['usernumber'],null,false);
+
+    $a["userpassword"]=myhash($a["userpassword"]);////esta funcion retorna un hash de sha256 normal
+
+    $gip=getIP();////funcion para capturar el ip del cliente
+
+    //funcion para generar el nivel de registro y prioridad par el sistema y si registra a logtable
+
+    LOGLevel("Usuario $name recupera contraseña (".$gip.")",2);
+
+    return $a;
+
+}
 
 
 //revisa que hayga contest y site y user tambien los ips de user y lo actualiza
