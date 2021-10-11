@@ -31,7 +31,7 @@ if (isset($_POST["name"]) && isset($_POST["password"])) {
 }else {
     //DBContestInfo retorna la informacion de la competencia en caso no retorna null
 
-    if(isset($_POST["username"]) && isset($_POST["userfullname"]) && isset($_POST["userdesc"]) && isset($_POST["userip"]) &&
+    if(isset($_POST["username"]) && isset($_POST["userfullname"]) && isset($_POST["useremail"]) && isset($_POST["userdesc"]) && isset($_POST["userip"]) &&
         isset($_POST["usernumber"]) && isset($_POST["userenabled"]) &&
         isset($_POST["usermultilogin"]) && isset($_POST["usertype"]) &&
         isset($_POST["passwordn1"]) && isset($_POST["passwordn2"])) {
@@ -43,6 +43,7 @@ if (isset($_POST["name"]) && isset($_POST["password"])) {
     	$param['enabled'] = htmlspecialchars($_POST["userenabled"]);
     	$param['multilogin'] = htmlspecialchars($_POST["usermultilogin"]);
     	$param['userfull'] = htmlspecialchars($_POST["userfullname"]);
+    	$param['useremail'] = htmlspecialchars($_POST["useremail"]);
     	$param['userdesc'] = htmlspecialchars($_POST["userdesc"]);
     	$param['type'] = htmlspecialchars($_POST["usertype"]);
     	$param['permitip'] = htmlspecialchars($_POST["userip"]);

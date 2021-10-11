@@ -131,7 +131,7 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")){
                     <div class="modal-body">
 
                       <div class="from-group">
-                        <input type="text" name="name" id="name" class="form-control" value="" placeholder="Username">
+                        <input type="text" name="name" id="name" class="form-control" value="" placeholder="Username or Email">
                       </div>
                       <br>
                       <div class="from-group">
@@ -141,7 +141,7 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")){
                     </div>
 
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-warning" name="forpassword">Forget Password</button>
+                      <button type="button" class="btn btn-warning" id="forpassword" name="forpassword">Forget Password</button>
                       <button type="button" class="mx-5 btn btn-danger" data-dismiss="modal" name="cancel">Cancel</button>
                       <button type="submit" class="btn btn-success" id="login_button" name="login_button">Sign in</button>
                     </div>
@@ -182,6 +182,11 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")){
 		  			  	<input type=hidden name="usermultilogin" id="usermultilogin" value="t" />
 						<div class="from-group">
 							<input type="text" name="userfullname" id="userfullname" class="form-control" placeholder="Nombre completo"maxlength="200" />
+						</div>
+						<br>
+						<!--PARA EMAIL-->
+						<div class="from-group">
+							<input type="text" name="useremail" id="useremail" class="form-control" placeholder="Email"maxlength="200" />
 						</div>
 						<br>
 						<div class="from-group">

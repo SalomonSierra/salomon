@@ -134,7 +134,7 @@ $(document).ready(function(){
 
     //register
     $('#register_button').click(function(){
-		 var usersitenumber = $('#usersitenumber').val();
+		 //var usersitenumber = $('#usersitenumber').val();
 		 var usernumber = $('#usernumber').val();
 		 var username = $('#username').val();
 
@@ -142,6 +142,7 @@ $(document).ready(function(){
 		 var userenabled = $('#userenabled').val();
 		 var usermultilogin = $('#usermultilogin').val();
 		 var userfullname = $('#userfullname').val();
+		 var useremail = $('#useremail').val();
 		 var userdesc = $('#userdesc').val();
 		 var userip = $('#userip').val();
 
@@ -153,81 +154,75 @@ $(document).ready(function(){
 
 		 var changepass = $('#changepass').val();
 
-         if(username != '' && userfullname != '' && userdesc != '' && passwordn1 != '' && passwordn2 != ''){
+         if(username != '' && userfullname != '' && useremail != '' && userdesc != '' && passwordn1 != '' && passwordn2 != ''){
              //alert("entro");
-			 if (confirm("Confirm?")) {
+			 var validar= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+			 if(validar.test(useremail)){
+				 if (confirm("Confirm?")) {
 
-				 $.ajax({
+    				 $.ajax({
 
-					  url:"include/i_header.php",
-					  method:"POST",
-					  data: {usersitenumber:usersitenumber, usernumber:usernumber, username:username, usertype:usertype, userenabled:userenabled, usermultilogin:usermultilogin, userfullname:userfullname, userdesc:userdesc, userip:userip, passwordn1:passwordn1, passwordn2:passwordn2, changepass:changepass},
+    					  url:"include/i_header.php",
+    					  method:"POST",
+    					  data: {usernumber:usernumber, username:username, usertype:usertype, userenabled:userenabled, usermultilogin:usermultilogin, userfullname:userfullname, useremail:useremail, userdesc:userdesc, userip:userip, passwordn1:passwordn1, passwordn2:passwordn2, changepass:changepass},
 
-					  success:function(data)
-					  {
-						   if(data == 'Yes'){
-							   $('#registerModal').hide();
-							   $.ajax({
+    					  success:function(data)
+    					  {
+    						   if(data == 'Yes'){
+    							   $('#registerModal').hide();
+    							   $.ajax({
 
-				                    url:"include/i_header.php",
-				                    method:"POST",
-				                    data: {name:userHASH, password:passHASH},
-				                    success:function(data)
-				                    {
-				 					   if (data == 'Yes') {
-				 						   	$('#loginModal').hide();
-				 					   		document.location = 'index.php?name='+userHASH+'&password='+passHASH;
-				 					   }else {
-				 					   		alert(data);
-				 					   }
+    				                    url:"include/i_header.php",
+    				                    method:"POST",
+    				                    data: {name:userHASH, password:passHASH},
+    				                    success:function(data)
+    				                    {
 
-				                    }
-				               });
+    				 					   if (data == 'Yes') {
+    				 						   	$('#loginModal').hide();
+    				 					   		document.location = 'index.php?name='+userHASH+'&password='+passHASH;
+    				 					   }else {
+    				 					   		alert(data);
+    				 					   }
 
-
-						   }else{
-							   //alert(data);
-							   if(data.indexOf('username already in use') !== -1) {
-								  // do stuff with the string
-								  alert('username already in use');
-							   }
-							   if(data.indexOf('Passwords don\'t match.') !== -1) {
-								  // do stuff with the string
-								  alert('Passwords don\'t match.');
-							   }
-							   if(data.indexOf('Contest no active') !== -1) {
-								  // do stuff with the string
-								  alert('Contest no active');
-								  $('#registerModal').hide();
-								  location.reload();
-							   }
-						   }
-
-						   /*if(data == 'existuser')
-						   {
-								alert("user exist");
-						   }
-						   else
-						   {
-							   if(data == 'Yes'){
-								   $('#registerModal').hide();
-								   location.reload();
-							   }else{
-								   alert(data);
-							   }
+    				                    }
+    				               });
 
 
-								//
-								//location.href="../indexs.php";
+    						   }else{
 
-						   }*/
-					  }
-				 });
+    							   if(data.indexOf('username already in use') !== -1) {
+    								  // do stuff with the string
+    								  alert('username already in use');
+    							   }
+    							   if(data.indexOf('Passwords don\'t match.') !== -1) {
+    								  // do stuff with the string
+    								  alert('Passwords don\'t match.');
+    							   }
+    							   if(data.indexOf('Problema de actualizacion para el usuario') !== -1) {
+    								  // do stuff with the string
+    								  alert('The User or Email is already in Use');
+    							   }
+    							   if(data.indexOf('Contest no active') !== -1) {
+    								  // do stuff with the string
+    								  alert('Contest no active');
+    								  $('#registerModal').hide();
+    								  location.reload();
+    							   }
+    						   }
 
-		     }else{
-				 $('#registerModal').hide();
-				 location.reload();
-			 }
+    					  }
+    				 });
+
+    		     }else{
+    				 $('#registerModal').hide();
+    				 location.reload();
+    			 }
+	 		 }else{
+	 			alert("The email is not valid");
+	 		 }
+
+
 
 
 
@@ -238,11 +233,32 @@ $(document).ready(function(){
          }
     });
 
+	//forpassword
+	$('#forpassword').click(function(){
+		var userHASH;
+		userHASH=$('#name').val();
 
-    //logout
+		 if(userHASH != ''){
 
+			  $.ajax({
+
+				   url:"include/i_recuperar.php",
+				   method:"POST",
+				   data: {name:userHASH},
+				   success:function(data)
+				   {
+					   alert(data);
+
+				   }
+			  });
+		 }
+		 else
+		 {
+			  alert("Please fill in your username or email");
+		 }
+	});
 
 });
-//register
+
 
 </script>

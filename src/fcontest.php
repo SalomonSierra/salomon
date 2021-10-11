@@ -191,6 +191,7 @@ function DBCreateUserTable(){
         \"usernumber\" int4 NOT NULL,                       -- (id de usuario)
         \"username\" varchar(20) NOT NULL,                  -- (nombre del usuario)
         \"userfullname\" varchar(200) NOT NULL,             -- (nombre completo del usuario or nick_name )
+        \"useremail\" varchar(100) NOT NULL,                -- (email de usuario)
         \"userdesc\" varchar(300),                          -- (descripcion del usuario or university)
         \"usertype\" varchar(20) NOT NULL,                  -- (system, coach, competidor)
         \"userenabled\" bool DEFAULT 't' NOT NULL,          -- (usuario activo)
@@ -220,10 +221,10 @@ function DBFakeContest(){
     DBExec($c,"begin work");
     $cf=globalconf();
     $pass= myhash($cf["basepass"]);
-    DBExec($c,"insert into usertable (usernumber, username, userfullname, ".
+    DBExec($c,"insert into usertable (usernumber, username, userfullname, useremail, ".
         "userdesc, usertype, userenabled, usermultilogin, userpassword, userip, userlastlogin, usersession, ".
         "userlastlogout, userpermitip) ".
-        "values (0, 'admin', 'Administrador', NULL, 'admin', 't', ".
+        "values (0, 'admin', 'Administrador', 'juezsalomon@gmail.com', NULL, 'admin', 't', ".
             "'t', '$pass', NULL, NULL, '', NULL, NULL)","DBFakeContest(insert admin user)");
 
     DBExec($c,"insert into contesttable (contestnumber, usernumber, contestname, conteststartdate, contestduration, ".
@@ -390,6 +391,17 @@ function DBUserInfo($user, $c=null, $hashpass=true){
     }
     if($hashpass)
         $a['userpassword']=myhash($a['userpassword'].$a['usersessionextra']);//retorna un hash de sha256 normal
+    return cleanuserdesc($a);//retorna con la modificacion del descuser separando si en caso que exista
+}
+//por name
+function DBUserInfoName($user, $c=null){
+    $sql="select *from usertable where username='$user' or useremail='$user'";
+    $a=DBGetRow($sql, 0, $c);//retorna un registro de una cosulta en array asociativo en caso de no existo lanza un error
+    if($a==null){
+        LOGError("Unable to find the user in the database. SQL=(".$sql.")");//funcion para generar el nivel de registro y prioridad para el sistema nivel 0
+        MSGError("Unable to find the user in the database. Contact an admin now!");//lanza un script mensaje aler
+    }
+
     return cleanuserdesc($a);//retorna con la modificacion del descuser separando si en caso que exista
 }
 //function que retorna con la modificacion del descuser separando si en caso que exista
@@ -1203,7 +1215,7 @@ function DBNewUser($param, $c=null){
 
 	$ac=array('user');
 	//$ac=array('contest','site','user');
-	$ac1=array('updatetime','username','userfull','userdesc','type','enabled','multilogin','pass','permitip','changepass',
+	$ac1=array('updatetime','username','userfull','useremail','userdesc','type','enabled','multilogin','pass','permitip','changepass',
 			   'userip','userlastlogin','userlastlogout','usersession','usersessionextra');
 
 	//$typei['contest']=1;
@@ -1226,6 +1238,7 @@ function DBNewUser($param, $c=null){
 	$pass = null;
 
 	$userfull='';
+	$useremail='';
 	$userdesc='';
 	$type='team';
 	$enabled='f';
@@ -1274,7 +1287,8 @@ function DBNewUser($param, $c=null){
 	      return false;
 	}*/
 	if($pass != myhash("") && $type != "admin" && $changepass != "t" && substr($pass,0,1) != "!") $pass='!'.$pass;
-	$r = DBExec($c, "select * from usertable where username='$username' and usernumber!=$user", "DBNewUser(get user)");
+	$r = DBExec($c, "select * from usertable where (username='$username' or useremail='$useremail') and usernumber!=$user", "DBNewUser(get user)");
+
 	$n = DBnlines ($r);
 	$ret=1;
 
@@ -1294,9 +1308,9 @@ function DBNewUser($param, $c=null){
     		     MSGError("Site $site does not exist");
     		     return false;
              }*/
-    		   $sql = "insert into usertable (usernumber, username, userfullname, " .
+    		   $sql = "insert into usertable (usernumber, username, userfullname, useremail, " .
     				"userdesc, usertype, userenabled, usermultilogin, userpassword, userpermitip) values " .
-    				"($user, '$username', '$userfull', '$userdesc', '$type', '$enabled', " .
+    				"($user, '$username', '$userfull', '$useremail', '$userdesc', '$type', '$enabled', " .
     				"'$multilogin', '$pass', '$permitip')";
     			DBExec ($c, $sql, "DBNewUser(insert)");
     			if($cw) {
@@ -1308,7 +1322,9 @@ function DBNewUser($param, $c=null){
 				$ret=2;
 				$sql = "update usertable set username='$username', userdesc='$userdesc', updatetime=$updatetime, " .
 					"userfullname='$userfull', usertype='$type', userpermitip='$permitip', ";
-				if($pass != null && $pass != myhash("")) $sql .= "userpassword='$pass', ";
+
+                if($useremail!='') $sql .= "useremail='$useremail', ";
+                if($pass != null && $pass != myhash("")) $sql .= "userpassword='$pass', ";
 				if($usersession != null) $sql .= "usersession='$usersession', ";
 				if($usersessionextra != null) $sql .= "usersessionextra='$usersessionextra', ";
 				if($userip != null) $sql .= "userip='$userip', ";
@@ -1326,11 +1342,62 @@ function DBNewUser($param, $c=null){
 	} else {
 	  if($cw)
 	     DBExec ($c, "rollback work");
-	  LOGLevel ("Problema de actualización para el usuario  $user (tal vez el nombre de usuario ya esté en uso).",1);
+	  LOGLevel ("Problema de actualizacion para el usuario  $user (tal vez el nombre de usuario ya esté en uso).",1);
 //Problema de actualización para el usuario $ usuario, sitio $ sitio (tal vez el nombre de usuario ya esté en uso).
-      MSGError ("Problema de actualización para el usuario  $user, (tal vez el nombre de usuario ya esté en uso).");
+      MSGError ("Problema de actualizacion para el usuario  $user, (tal vez el nombre de usuario ya esté en uso).");
 	  return false;
 	}
+	if($cw) DBExec($c, "commit work");
+	return $ret;
+}
+//funcion para restablecer password
+function DBResPassword($name, $pass, $c=null){
+    $cw = false;
+	if($c == null) {
+		$cw = true;
+		$c = DBConnect();
+		DBExec($c, "begin work", "DBNewUser(begin)");
+	}
+	DBExec($c, "lock table usertable", "DBNewUser(lock)");
+
+    $u=DBUserInfoName($name);
+    $user=$u["usernumber"];
+	$r = DBExec($c, "select * from usertable where (username='$name' or useremail='$name') and usernumber!=$user", "DBNewUser(get user)");
+
+	$n = DBnlines ($r);
+	$ret=false;
+
+	if ($n == 0) {
+
+		$sql = "select * from usertable where username='$name' or useremail='$name'";
+		$a = DBGetRow ($sql, 0, $c);
+        //para insercion o actulizacion
+		if ($a == null) {
+
+    			if($cw) {
+    				DBExec ($c, "commit work");
+    			}
+    			LOGLevel ("Usuario $user no encotrado para restablecer password.",2);
+                return false;
+        } else {
+
+				$sql = "update usertable set userpassword='$pass' where username='$name' or useremail='$name'";
+				$r = DBExec ($c, $sql, "DBNewUser(update)");
+				if($cw) {
+					DBExec ($c, "commit work");
+				}
+				LOGLevel("Usuario $user restablece password.",2);
+                return true;
+		}
+	} else {
+	  if($cw)
+	     DBExec ($c, "rollback work");
+	  LOGLevel ("Problema de restablecer password para el usuario  $user (tal vez el nombre de usuario ya esté en uso).",1);
+//Problema de actualización para el usuario $ usuario, sitio $ sitio (tal vez el nombre de usuario ya esté en uso).
+      MSGError ("Problema de restablecer password para el usuario  $user, (tal vez el nombre de usuario ya esté en uso).");
+	  return false;
+	}
+
 	if($cw) DBExec($c, "commit work");
 	return $ret;
 }
