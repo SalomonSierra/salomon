@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <!-- 1633967182 --> <?php exit; ?>	0	rojo	FF0000
+=======
+<!-- 1634066570 --> <?php exit; ?>	0
+>>>>>>> b160a105bc8299f7b3cde70fc6f2e4261f00768b
 <br>
 <table class="table table-hover">
  <thead>
@@ -79,7 +83,6 @@
            <div class="col-sm-8">
                <select name="problem" onclick="Arquivo()">
 <option selected value="-1"> -- </option>
-<option value="1">A</option>
 	</select>
            </div>
        </div>
