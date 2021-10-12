@@ -90,7 +90,7 @@ if(!isset($_POST['noflush'])){
 
             <div class="collapse navbar-collapse"id="first">
 
-              <a class="navbar-brand text-primary"href="index.php">
+              <a class="navbar-brand text-primary"href="contest.php">
 
                 Salomon
               </a>
