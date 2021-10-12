@@ -1,6 +1,6 @@
 
 <?php
-
+//prueba de email
 ini_set('display_errors',1);
 error_reporting( E_ALL );
 $from ="pruebas@salomon.com";
