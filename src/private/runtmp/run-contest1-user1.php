@@ -1,4 +1,4 @@
-<!-- 1631886456 --> <?php exit; ?>	0
+<!-- 1634066570 --> <?php exit; ?>	0
 <br>
 <table class="table table-hover">
  <thead>
@@ -25,7 +25,6 @@
            <div class="col-sm-8">
                <select name="problem" onclick="Arquivo()">
 <option selected value="-1"> -- </option>
-<option value="1">A</option>
 	</select>
            </div>
        </div>

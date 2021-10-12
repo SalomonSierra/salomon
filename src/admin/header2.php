@@ -41,8 +41,16 @@ if(!ValidSession()){
     InvalidSession("admin/index.php");////funcion para expirar el session y registar 3= debug en logtable
     ForceLoad("$loc/index.php");//index.php
 }
-if($_SESSION["usertable"]["contestnumber"]==0)
+
+if(isset($_GET["contest"]) && $_GET["contest"]!=0){
     $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+    if(($ct = DBContestInfo($_SESSION["usertable"]["contestnumber"])) == null)
+    	ForceLoad("contest.php");//index.php
+}else{
+    ForceLoad("contest.php");//index.php
+}
+
+
 if($_SESSION["usertable"]["usertype"] != "admin"){
     IntrusionNotify("admin/index.php");
     ForceLoad("$loc/index.php");//index.php
@@ -62,8 +70,13 @@ if(!isset($_POST['noflush'])){
                     <label for=""class="text-white"><?php list($clockstr,$clocktype)=siteclock2($_SESSION["usertable"]["contestnumber"]); echo $clockstr; ?></label>
                 </div>
                 <div class="col-sm-8">
-                    //competencia prueba salomon
+                    <span class="text-dark font-italic">NOMBRE:</span>
 
+                    <!--para codigo php-->
+                    <?php
+                    echo "..::".strtoupper($ct["contestname"])."::..";
+
+                    ?>
                 </div>
             </div>
         </div>

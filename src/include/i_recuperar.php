@@ -36,7 +36,7 @@ if(isset($_POST["name"])){
                 $header="MIME-Version: 1.0"."\r\n";
                 $header.="Content-type: text/html; charset=iso-8859-1"."\r\n";
                 $header.= "From: juez7@salomon.com"."\r\n";
-
+                $pos=strpos($email,"@");
                 $ma=@mail($email,$asunto,$mensaje,$header);
                 if($ma){
                     echo "Enviamos un link al correo ".substr($email,0,1)."***".substr($email,$pos-1,1)."".substr($email,$pos);

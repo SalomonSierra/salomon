@@ -2,7 +2,7 @@
 
 require('header2.php');
 
-if(($ct = DBContestInfo($_GET["contest"])) == null)
+if(($ct = DBContestInfo($_SESSION["usertable"]["contestnumber"])) == null)
 	ForceLoad("index.php");
 
 ?>
@@ -19,7 +19,7 @@ if(($ct = DBContestInfo($_GET["contest"])) == null)
 	<tbody>
 
 <?php
-$prob = DBGetProblems($_GET["contest"]);
+$prob = DBGetProblems($_SESSION["usertable"]["contestnumber"]);
 for ($i=0; $i<count($prob); $i++) {
   echo " <tr class=\"d-flex\">\n";
 //  echo "  <td nowrap>" . $prob[$i]["number"] . "</td>\n";

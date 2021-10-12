@@ -32,8 +32,13 @@ if(!ValidSession()){
     InvalidSession("team/index.php");////funcion para expirar el session y registar 3= debug en logtable
     ForceLoad("../index.php");//index.php
 }
-if($_SESSION["usertable"]["contestnumber"]==0)
+if(isset($_GET["contest"]) && $_GET["contest"]!=0){
     $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+    if(($ct = DBContestInfo($_SESSION["usertable"]["contestnumber"])) == null)
+    	ForceLoad("contest.php");//index.php
+}else{
+    ForceLoad("contest.php");//index.php
+}
 $contestinfo=DBContestInfo($_SESSION["usertable"]["contestnumber"]);
 if(isset($_GET["id"])){
     $_SESSION["usertable"]["private"]=$_GET["id"];
@@ -69,9 +74,11 @@ if($_SESSION["usertable"]["usertype"] != "team"){
                         <label for=""class="text-white"><?php list($clockstr,$clocktype)=siteclock2($_SESSION["usertable"]["contestnumber"]); echo $clockstr; ?></label>
                     </div>
                     <div class="col-sm-8">
-                        NOMBRE DE LA COMPETENCIA:
+                        <span class="text-dark font-italic">NOMBRE:</span>
+
                         <!--para codigo php-->
                         <?php
+                        echo "..::".strtoupper($contestinfo["contestname"])."::..";
                         $ds = DIRECTORY_SEPARATOR;
                         if($ds=="") $ds = "/";
                         //var/www/salomon/src/private/runtmp/run-contest-1-site1-user2.php
@@ -181,7 +188,7 @@ if($_SESSION["usertable"]["usertype"] != "team"){
 
                 <div class="collapse navbar-collapse"id="first">
 
-                  <a class="navbar-brand text-primary"href="index.php">
+                  <a class="navbar-brand text-primary"href="contest.php">
 
                     Salomon
                   </a>

@@ -1,22 +1,44 @@
 
 <?php
+
+ini_set('display_errors',1);
+error_reporting( E_ALL );
+$from ="pruebas@salomon.com";
+$to="queviva777vivaque@gmail.com";
+$subject="Prueba de envio de email con PHP";
+$mensaje="Esto es un email de prueba enviado con PHP";
+$header="From:".$from;
+$me=mail($to,$subject,$mensaje,$header);
+echo $me."que";
+echo "enviado";
+
+
+
+
+
+
+
+
+
+
+
 //http://repositorio.utp.edu.co/dspace/bitstream/handle/11059/4131/0058J61.PDF?sequence=1&isAllowed=y
 //otro proyecto.
-include 'db.php';
+//include 'db.php';
 //include 'globals.php';
-echo "---------\n";
+//echo "---------\n";
 
-$c=DBConnect();
+//$c=DBConnect();
 
-pg_query($c, "begin work");
+//pg_query($c, "begin work");
 
-$lo = DB_lo_open ($c, 19352, "r");
-$str=DB_lo_read_tobrowser(6,$lo,$c);
+//$lo = DB_lo_open ($c, 19352, "r");
+//$str=DB_lo_read_tobrowser(6,$lo,$c);
 //echo "FAIBAN";
-DB_lo_close($lo);
-pg_query($c, "commit work");
+//DB_lo_close($lo);
+//pg_query($c, "commit work");
 
-DBClose($c);
+//DBClose($c);
 
 //$cad="fabian sierra acarapi";
 //$sub="rra acad";

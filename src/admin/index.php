@@ -8,7 +8,7 @@ require('header.php');
             <img class="img-fluid" src="../images/salomon.png"/>
         </div>
         <div class="col-lg-8 mb-4">
-            <h1 class="mt-4 mb-3 font-italic">SALOMON <span class="text-secondary">System</span> </h1>
+            <h1 class="mt-4 mb-3 font-italic">SALOMON <span class="text-secondary">Admin</span> </h1>
             Es un juez virtual para programacion competitiva, desarrollado como proyecto de grado para la carrera Ing. Informatica por el Unv. Fabian Sierra A.
         </div>
     </div>
