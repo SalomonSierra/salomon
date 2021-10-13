@@ -1600,7 +1600,7 @@ function DBContestClockInfo($contest, $c=null, $msg=true){
 function DBContestInfoAll() {
 
     $c = DBConnect();
-    $sql = "select distinct c.contestnumber as number, c.contestprivate as private, " .
+    $sql = "select distinct c.contestnumber as number, c.usernumber as user, c.contestprivate as private, " .
         "c.contestname as name, c.conteststartdate as startdate, c.contestactive as active, c.contestprivate as private " .
         "from contesttable as c where c.contestnumber!=0 order by c.contestnumber desc";
     $r = DBExec($c, $sql, "DBContestInfoAll(get contests)");
@@ -1809,7 +1809,11 @@ function DBNewContest($usernumber, $param=array(), $c=null){
     //para ver resultados
     $activeresult="f";
     $private="f";
-
+    if($_SESSION["usertable"]["usertype"]=="team"){
+        $judge=0;
+    }else{
+        $judge=$usernumber;
+    }
     DBExec($c,"insert into contesttable (contestnumber, usernumber, contestname, conteststartdate, contestduration, ".
         "contestlastmileanswer, contestlastmilescore, contestpenalty, ".
         "contestmaxfilesize, contestactive, contestprivate, contestactiveresult, ".
@@ -1818,7 +1822,7 @@ function DBNewContest($usernumber, $param=array(), $c=null){
         "updatetime) values ($n, $usernumber, '$name', ".
         "$startdate, $duration, $lastmileanswer, ".
         "$lastmilescore, $penalty, 100000, '$active', '$private', '$activeresult', ".
-        "'$contestip', 't', 't', $usernumber, ".
+        "'$contestip', 't', 't', $judge, ".
         "$n, $contestscorelevel, 0, 0, ".
         "$updatetime)","DBNewContest(insert contest)");
 

@@ -9,8 +9,12 @@ require('header.php');
 		<a href="index.php">Inicio</a>
 	</li>
 	<li class="breadcrumb-item active">Competencias</li>
+	<div class="pl-5">
+		<a href="contest.php?new=1" class="btn btn-success " data-toggle="modal"data-target="#loginModal" name="crear">Crear Competencia</a>
+	</div>
+
 </ol>
-<br>
+
 <table class="table table-bordered table-hover">
 	<thead>
 		<tr class="d-flex">

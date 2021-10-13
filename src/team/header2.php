@@ -211,7 +211,11 @@ if($_SESSION["usertable"]["usertype"] != "team"){
                   </a>
                   <ul class="navbar-nav mr-auto">
 
-
+                     <?php
+                        if($contestinfo["usernumber"]==$_SESSION["usertable"]["usernumber"]){
+                            echo "<li class=\"nav-item\"> <a class=\"nav-link text-primary\" href=\"problemcontest.php?contest=".$_SESSION["usertable"]["contestnumber"]."\">Problemas set</a> </li>";
+                        }
+                      ?>
                     <li class="nav-item"> <a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Envios</a> </li><!---->
                     <li class="nav-item"> <a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Score</a> </li><!--index.php-->

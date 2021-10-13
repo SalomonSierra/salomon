@@ -331,7 +331,7 @@ if (count($cs) == 0) echo "<br><center><b><font color=\"#ff0000\">NO HAY COMPETE
     	?>
         <!--
     	   <div class="form-group row">
-    		
+
     			<label for="" class="col-sm-4 col-form-label">Runs que serán por:</label>
     			<div class="col-sm-8">
     				<input readonly type="text" name="judging" class="form-control" value="<?php echo $ct["contestjudging"]; ?>" size="20" maxlength="200" />

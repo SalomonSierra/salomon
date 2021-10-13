@@ -1,6 +1,97 @@
 <?php
 
 require('header.php');
+if(isset($_GET["new"]) && $_GET["new"] == "1"){
+    //creamos un nuevo contest y insertamos problem fake, language, respuestas del juez
+    //funcion para create un nuevo sitio tambien esta incluido sitetimetable
+    $usernumber=$_SESSION["usertable"]["usernumber"];//id del usuario propietario de la competencia
+    $n= DBNewContest($usernumber);
+    ForceLoad("contest.php?contest=$n#form_contest");
+}
+if(isset($_GET["contest"]) && is_numeric($_GET["contest"]))
+    $contest=$_GET["contest"];
+else
+    $contest=0;//mejorar....
+    //$contest=$_SESSION["usertable"]["contestnumber"];//mejorar....
+//retorna la informacion de la competencia en caso no retorna null
+if(($ct=DBContestInfo(0)) == null)
+    ForceLoad("../index.php");//index.php
+
+
+if(isset($_POST["Submit3"]) && isset($_POST["penalty"]) && is_numeric($_POST["penalty"]) &&
+        isset($_POST["maxfilesize"]) &&
+        isset($_POST["name"]) && $_POST["name"] != "" && isset($_POST["lastmileanswer"]) &&
+        is_numeric($_POST["lastmileanswer"]) &&
+        isset($_POST["lastmilescore"]) && is_numeric($_POST["lastmilescore"]) && isset($_POST["duration"]) &&
+        is_numeric($_POST["duration"]) && isset($_POST["scorelevel"]) && is_numeric($_POST["scorelevel"]) &&
+        isset($_POST["startdateh"]) && $_POST["startdateh"]>=0 && $_POST["startdateh"] <= 23 &&
+        isset($_POST["contest"]) && is_numeric($_POST["contest"]) &&
+        isset($_POST["startdatemin"]) && $_POST["startdatemin"] >=0 && $_POST["startdatemin"]<=59 &&
+        isset($_POST["startdated"]) && isset($_POST["startdatem"]) && isset($_POST["startdatey"]) &&
+        checkdate($_POST["startdatem"], $_POST["startdated"], $_POST["startdatey"])){
+    if($_POST["confirmation"] == "confirm"){
+        //checkdate Comprueba la validez de una fecha formada por los argumentos. Una fecha
+        // se considera válida si cada parámetro está propiamente definido.
+        //mktime ( int $hour = date("H") , int $minute = date("i") , int $second = date("s") ,
+         //int $month = date("n") , int $day = date("j") , int $year = date("Y") , int $is_dst = -1 ) : int
+         //Devuelve la marca de tiempo Unix correspondiente a los argumentos dados.
+         //Esta marca de tiempo es un entero que contiene el número de segundos entre
+         //la Época Unix (1 de Enero del 1970 00:00:00 GMT) y el instante especificado.
+        $t=mktime($_POST["startdateh"], $_POST["startdatemin"], 0, $_POST["startdatem"],
+                        $_POST["startdated"], $_POST["startdatey"]);
+        /*if($_POST["Submit3"] == "Activar") $ac=1;
+        else $ac=0;*/
+        $param['number']=$_POST["contest"];
+        $param['name']=$_POST["name"];
+        $param['startdate']=$t;
+        $param['duration']=$_POST["duration"]*60;
+        $param['lastmileanswer']=$_POST["lastmileanswer"]*60;
+        $param['lastmilescore']=$_POST["lastmilescore"]*60;
+        $param['penalty']=$_POST["penalty"]*60;
+        $param['maxfilesize']=$_POST["maxfilesize"]*1000;
+        $param['password']=$_POST["password"];
+        //$param['active']=$ac;
+
+
+
+        //para ver resultados
+        if(isset($_POST["activeresult"]))
+			$param['activeresult']= $_POST["activeresult"];
+        if(isset($_POST["private"]))
+    		$param['private']= $_POST["private"];
+        //del sitio
+        $param['contestjudging']= $_POST["judging"];
+        //$param['sitetasking']= $_POST["tasking"];
+		$param['contestautoend']= 't';
+        //if(isset($_POST["autoend"]))
+        //    $param['contestautoend']= $_POST["autoend"];
+        if(isset($_POST["globalscore"]))
+            $param['contestglobalscore']= $_POST["globalscore"];
+
+		$param['contestactive']='t';
+		//if(isset($_POST["active"]))
+        //    $param['contestactive']=$_POST["active"];
+        $param['contestscorelevel']=$_POST["scorelevel"];
+        $param['contestpermitlogins']='';
+		$param['contestautojudge']='t';
+		//if(isset($_POST["autojudge"]))
+        //    $param['contestautojudge']=$_POST["autojudge"];
+        //$param['sitechiefname']=$_POST["chiefname"];
+        //funcion para actulizar contesttable de true a false y sitetable, sitetimetable con valores nuevos
+
+        DBUpdateContest($param);
+        /*if($ac==1 && $_POST["contest"] != $_SESSION["usertable"]["contestnumber"]){
+            $cf=globalconf();
+            //Debes iniciar sesión en el nuevo concurso. La contraseña de administrador estándar está vacía (si aún no se ha cambiado)
+            if($cf["basepass"] == "")
+                MSGError("Debes iniciar sesión en el nuevo competencia. La contraseña de administrador estándar está vacía (si aún no se ha cambiado).");
+            else
+                MSGError("Debes iniciar sesión en el nuevo competencia. La contraseña de administrador estándar es ".$cf["basepass"]." (si aún no se ha cambiado).");
+            ForceLoad("../index.php");//index.php Debes iniciar sesión en el nuevo concurso. La contraseña de administrador estándar es
+        }*/
+    }
+    ForceLoad("contest.php");
+}
 
 ?>
 <!--
@@ -14,7 +105,12 @@ require('header.php');
 </ol>-->
 
 
-<br>
+<div class="container">
+	<br>
+	<a href="contest.php?new=1" class="btn btn-success">Crear Competencia</a>
+	<br>
+	<br>
+</div>
 <table class="table table-bordered table-hover">
 	<thead>
 		<tr class="d-flex">
@@ -28,45 +124,261 @@ require('header.php');
 
 <?php
 //$prob = DBGetProblemsGlobal($_SESSION["usertable"]["contestnumber"]);
-$ct = DBContestInfoAll();//falta...
+$cs = DBContestInfoAll();//falta...
 $ac=DBGetActiveContest();
-for ($i=0; $i<count($ct); $i++) {
-	list($clockstr,$clocktype)=siteclock2($ct[$i]["number"]);
+for ($i=0; $i<count($cs); $i++) {
+	list($clockstr,$clocktype)=siteclock2($cs[$i]["number"]);
 	if($clocktype==-1000000000){
 		echo " <tr class=\"d-flex table-secondary\">\n";
 	}else{
-		if($ct[$i]["private"]=='f'){
+		if($cs[$i]["private"]=='f'){
 			echo " <tr class=\"d-flex table-success\">\n";
 		}else{
 			echo " <tr class=\"d-flex table-warning\">\n";
 		}
 	}
 //  echo "  <td nowrap>" . $prob[$i]["number"] . "</td>\n";
-  echo "  <td class=\"col-1\">" .$ct[$i]["number"]."</td>\n";
-  echo "  <td class=\"col-5\"><a href=\"problem.php?contest=".$ct[$i]["number"]."\">" . $ct[$i]["name"] . "&nbsp;</a></td>\n";
+  echo "  <td class=\"col-1\">" .$cs[$i]["number"]."</td>\n";
+  echo "  <td class=\"col-5\"><a href=\"problem.php?contest=".$cs[$i]["number"]."\">" . $cs[$i]["name"] . "&nbsp;</a></td>\n";
 
   echo "  <td class=\"col-3\">" . $clockstr . "&nbsp;</td>\n";
-  if($ct[$i]["private"]=='t'){
-	  echo "  <td class=\"col-3 text-danger\">Privado</td>\n";
+  if($cs[$i]["private"]=='t'){
+	  echo "  <td class=\"col-2 text-danger\">Privado";
   }else{
-	  echo "  <td class=\"col-3 text-success\">Publico</td>\n";
+	  echo "  <td class=\"col-2 text-success\">Publico";
   }
-  /*//$fabian="fabian";
-  echo "  <td class=\"col-5\">" . $ct[$i]["fullname"] . "&nbsp;</td>\n";
-  if (isset($ct[$i]["descoid"]) && $ct[$i]["descoid"] != null && isset($ct[$i]["descfilename"])) {
-    echo "  <td class=\"col-3\"><a href=\"filedownload.php?" . filedownload($ct[$i]["descoid"], $ct[$i]["descfilename"]) .
-		"\">" . basename($ct[$i]["descfilename"]) . "</a>&nbsp;&nbsp;<a href=\"#\" class=\"btn btn-primary\" style=\"font-weight:bold\" onClick=\"window.open('filewindow.php?".filedownload($ct[$i]["descoid"], $ct[$i]["descfilename"])."', 'Ver - PROBLEMA', 'width=680,height=600,scrollbars=yes,resizable=yes')\">Ver Problema</a></td>\n";
+  if($_SESSION["usertable"]["usernumber"]==$cs[$i]["user"]){
+      echo "&nbsp;&nbsp;<a href=\"contest.php?contest=".$cs[$i]["number"]."#form_contest\" class=\"btn btn-primary\">Actualizar</a>";
   }
-  else
-    echo "  <td class=\"col-2\">no description file available</td>\n";
-	*/
+  echo "</td>\n";
   echo " </tr>\n";
 }
 echo "</tbody></table>";
-if (count($ct) == 0) echo "<br><center><b><font color=\"#ff0000\">NO HAY COMPETENCIAS</font></b></center>";
+if (count($cs) == 0) echo "<br><center><b><font color=\"#ff0000\">NO HAY COMPETENCIAS</font></b></center>";
 
 ?>
+<div class="container">
 
+
+    <?php if(isset($_GET["contest"])){ $ct=DBContestClockInfo($_GET["contest"]);?>
+    <a id="form_contest"></a>
+    <center><b><font color="#ff30a2">DATOS DE LA COMPENTECIA</font></b></center>
+    <form name="form1" enctype="multipart/form-data" method="post" action="contest.php">
+        <input type="hidden" name="confirmation" value="noconfirm">
+        <script language="javascript">
+            function conf() {
+                if(confirm("Confirm?")){
+                    document.form1.confirmation.value='confirm';
+                }
+            }
+            function newcontest(){
+                document.location='contest.php?new=1';
+            }
+            function contestch(n){
+                if(n==null){
+                    k=document.form1.contest[document.form1.contest.selectedIndex].value;
+                    if(k=='new') newcontest();
+                    else document.location='contest.php?contest='+k+'#form_contest';
+                }else{
+                    document.location='contest.php?contest='+n+'#form_contest';
+                }
+
+            }
+        </script>
+        <br><br>
+        <div class="form-group row">
+            <label for="contest" class="col-sm-2 col-form-label">Numero de Competencia:</label>
+            <div class="col-sm-10">
+
+                <br>
+                <select class="btn btn-primary" onChange="contestch()" id="contest" name="contest">
+                    <?php
+                    //retorna todas las competencias
+
+                    $isfake=false;
+                    for ($i=0; $i <count($cs) ; $i++) {
+						if($cs[$i]["user"]==$_SESSION["usertable"]["usernumber"]){
+
+							echo "<option value=\"".$cs[$i]["number"]."\" ";
+	                        if($contest == $cs[$i]["number"]){
+	                            echo "selected";
+	                            if($cs[$i]["number"] == 0) $isfake=true;
+	                        }
+
+	                        echo ">".$cs[$i]["number"].($cs[$i]["active"]=="t"?"":"")."</option>\n";
+
+						}
+
+					}
+                    ?>
+                    <option class="bg-success"value="new">nueva competencia</option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <label for="name" class="col-sm-4 col-form-label">Nombre:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo $ct["contestname"]; ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="startdateh" class="col-sm-2 col-form-label">Fecha de inicio:</label>
+            hh:mm
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="startdateh" name="startdateh" value="<?php echo date("H",$ct["conteststartdate"]);  ?>" maxlength="2">
+            </div>
+            :
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="startdatemin" name="startdatemin" value="<?php echo date("i",$ct["conteststartdate"]);  ?>">
+            </div>
+            &nbsp; &nbsp; dd/mm/yyyy
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="startdated" name="startdated" value="<?php echo date("d",$ct["conteststartdate"]);  ?>">
+            </div>
+            /
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="startdatem" name="startdatem" value="<?php echo date("m",$ct["conteststartdate"]);  ?>">
+            </div>
+            /
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="startdatey" name="startdatey" value="<?php echo date("Y",$ct["conteststartdate"]);  ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="duration" class="col-sm-4 col-form-label">Duración (en minutos):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="duration" name="duration" value="<?php echo $ct["contestduration"]/60; ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lastmileanswer" class="col-sm-4 col-form-label">Deja de responder (en minutos):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lastmileanswer" name="lastmileanswer" value="<?php echo $ct["contestlastmileanswer"]/60; ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="lastmilescore" class="col-sm-4 col-form-label">Detener score (en minutos):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lastmilescore" name="lastmilescore" value="<?php echo $ct["contestlastmilescore"]/60; ?>">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="penalty" class="col-sm-4 col-form-label">Penalización (en minutos):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="penalty" name="penalty" value="<?php echo $ct["contestpenalty"]/60; ?>">
+            </div>
+        </div>
+		<input type="hidden" class="form-control" id="maxfilesize" name="maxfilesize" value="<?php echo $ct["contestmaxfilesize"]/1000; ?>">
+        <!--<div class="form-group row">
+            <label for="maxfilesize" class="col-sm-4 col-form-label">Tamaño máximo de archivo permitido para equipos (en KB):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="maxfilesize" name="maxfilesize" value="<?php echo $ct["contestmaxfilesize"]/1000; ?>">
+            </div>
+        </div>-->
+
+        <div class="form-group form-check">
+            <label class="form-check-label" for="private">Competencia Privada</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php
+                if ($ct["contestprivate"] == "t")
+                    echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"private\" id=\"private\" checked value=\"t\" />";
+                else
+                    echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"private\" id=\"private\" value=\"t\" />";
+            ?>
+
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="password" value="<?php echo $ct["contestpassword"]; ?>" placeholder="password">
+            </div>
+
+
+		</div>
+        <div class="form-group form-check">
+			<label class="form-check-label" for="activeresult">Ver respuestas</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<?php
+				if ($ct["contestactiveresult"] == "t")
+					echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"activeresult\" id=\"activeresult\" checked value=\"t\" />";
+				else
+					echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"activeresult\" id=\"activeresult\" value=\"t\" />";
+			?>
+
+		</div>
+        <!--MEJORAR PARA LA COMPETENCIA-->
+
+    	<?php
+    	if (!$ct["contestrunning"]) {
+    	?>
+    		<div class="form-group row">
+    			<label for="" class="col-sm-4 col-form-label">Competencia terminado en:</label>
+    			<div class="col-sm-8">
+    				<b>
+    				<?php echo dateconv($ct["contestendeddate"]); ?>
+    				</b>
+    			</div>
+    	   </div>
+
+        <?php
+    		if($ct["contestautoended"])
+    			$w = (int) ($ct["contestduration"]/60);
+    		else
+    			$w = (int) ($ct["currenttime"]/60);
+        ?>
+    		<div class="form-group row">
+    			<label for="" class="col-sm-4 col-form-label">Real duration:</label>
+    			<div class="col-sm-8">
+    				<b>
+    				<?php echo $w."minutes"; ?>
+    				</b>
+    			</div>
+    	   </div>
+
+    	<?php
+    	}
+    	?>
+
+           <input type="hidden" name="judging" class="form-control" value="<?php echo $ct["contestjudging"]; ?>" size="20" maxlength="200" />
+
+
+
+    		<div class="form-group row">
+     		    <!--score global
+     		 	<label for="" class="col-sm-4 col-form-label">Score Global:</label>-->
+     		 	<div class="col-sm-8">
+    				<input type="hidden" name="globalscore" class="form-control" value="<?php echo $ct["contestglobalscore"]; ?>" size="20" maxlength="50" />
+     		 	</div>
+     	    </div>
+
+    	    <!--nivel de puntuacion-->
+    		<div class="form-group row">
+    			<!--
+     		 	<label for="" class="col-sm-4 col-form-label">Nivel de score:</label>-->
+     		 	<div class="col-sm-8">
+    				<input type="hidden" class="form-control" name="scorelevel" value="<?php echo $ct["contestscorelevel"]; ?>" size="2" maxlength="2" />
+     		 	</div>
+     	    </div>
+
+    	   <div class="form-group row">
+    		  <label for="" class="col-sm-4 col-form-label">Numero de Ejecuciones:</label>
+    		  <div class="col-sm-8">
+    			  <?php echo $ct["contestnextrun"]; ?>
+    		  </div>
+    	  </div>
+
+
+
+        <div class="form-group row">
+            <input type="submit" name="Submit3" onClick="conf()" class="btn btn-primary" value="Enviar">&nbsp;
+
+            <input type="reset" name="Submit4" class="btn btn-primary" value="Limpiar">
+        </div>
+
+
+    </form>
+    <?php }?>
+
+
+</div>
 
 
 <!--PIE DE PAGINA......PAGINA........PAGINA-->
