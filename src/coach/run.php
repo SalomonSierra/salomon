@@ -20,19 +20,19 @@ if(isset($_GET["order"]) && $_GET["order"] != "") {
   <table class="table table-bordered table-hover">
      <thead>
   		<tr>
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=run">Run #</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=run">Run #</a></th>
 
             <?php if($runphp == "run.php") { ?>
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=user">User</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=user">User</a></th>
             <?php } ?>
             <th scope="col">Time</th>
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=problem">Problem</a></th>
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=language">Language</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=problem">Problem</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=language">Language</a></th>
             <!--  <td><b>Filename</b></td> -->
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=status">Status</a></th>
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=judge">Judge</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=status">Status</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=judge">Judge</a></th>
             <th scope="col">AJ</th>
-            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $_GET["contest"]; ?>&order=answer">Answer</a></th>
+            <th scope="col"><a href="<?php echo $runphp; ?>?contest=<?php echo $contestnumber; ?>&order=answer">Answer</a></th>
   		</tr>
   	 </thead>
   	 <tbody>

@@ -7,10 +7,10 @@ require('header2.php');
 
 if(($ct = DBContestInfo(0)) == null)
 	ForceLoad("../index.php");//index.php
-if(!isset($_GET["contest"])){
+if(!isset($contestnumber)){
 	ForceLoad("contest.php");//index.php
 }else{
-	$cf=DBContestInfo($_GET["contest"]);
+	$cf=DBContestInfo($contestnumber);
 }
 
 //funcion para obtener todos los problemas con sus datos y creando la archivos si no existe con los datos
