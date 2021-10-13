@@ -27,7 +27,7 @@ if(!isset($_POST['noflush'])){
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Admin</title>
+        <title>Coach</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="<?php echo  $loc; ?>/Css.php" type="text/css">
@@ -41,13 +41,29 @@ if(!ValidSession()){
     InvalidSession("admin/index.php");////funcion para expirar el session y registar 3= debug en logtable
     ForceLoad("$loc/index.php");//index.php
 }
-if(isset($_GET["contest"]) && $_GET["contest"]!=0){
-    $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+
+//inicio logica de ingreso a la competencia
+if($_SESSION["usertable"]["contestnumber"]==0){
+    if(!isset($_GET["contest"])){
+        ForceLoad("contest.php");//index.php
+    }else{
+        if($_GET["contest"]==0)
+            ForceLoad("contest.php");//index.php
+        if(($ct = DBContestInfo($_GET["contest"])) == null)
+        	ForceLoad("contest.php");//index.php
+        $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+    }
+}else{
+    if(isset($_GET["contest"])){
+        if($_GET["contest"]!=$_SESSION["usertable"]["contestnumber"])
+            $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+
+    }
     if(($ct = DBContestInfo($_SESSION["usertable"]["contestnumber"])) == null)
     	ForceLoad("contest.php");//index.php
-}else{
-    ForceLoad("contest.php");//index.php
 }
+$contestnumber=$_SESSION["usertable"]["contestnumber"];
+//fin logica de ingreso a la competencia
 
 if($_SESSION["usertable"]["usertype"] != "coach"){
     IntrusionNotify("coach/index.php");

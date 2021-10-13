@@ -32,13 +32,30 @@ if(!ValidSession()){
     InvalidSession("team/index.php");////funcion para expirar el session y registar 3= debug en logtable
     ForceLoad("../index.php");//index.php
 }
-if(isset($_GET["contest"]) && $_GET["contest"]!=0){
-    $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+
+//inicio logica de ingreso a la competencia
+if($_SESSION["usertable"]["contestnumber"]==0){
+    if(!isset($_GET["contest"])){
+        ForceLoad("contest.php");//index.php
+    }else{
+        if($_GET["contest"]==0)
+            ForceLoad("contest.php");//index.php
+        if(($ct = DBContestInfo($_GET["contest"])) == null)
+        	ForceLoad("contest.php");//index.php
+        $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+    }
+}else{
+    if(isset($_GET["contest"])){
+        if($_GET["contest"]!=$_SESSION["usertable"]["contestnumber"])
+            $_SESSION["usertable"]["contestnumber"]=$_GET["contest"];
+
+    }
     if(($ct = DBContestInfo($_SESSION["usertable"]["contestnumber"])) == null)
     	ForceLoad("contest.php");//index.php
-}else{
-    ForceLoad("contest.php");//index.php
 }
+$contestnumber=$_SESSION["usertable"]["contestnumber"];
+//fin logica de ingreso a la competencia
+
 $contestinfo=DBContestInfo($_SESSION["usertable"]["contestnumber"]);
 if(isset($_GET["id"])){
     $_SESSION["usertable"]["private"]=$_GET["id"];
