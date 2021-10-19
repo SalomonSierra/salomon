@@ -43,7 +43,7 @@
                     <input type="file" name="sourcefile" id="sourcefile<?php echo $prob[$i]["number"]; ?>" class="form-control" value="">
                   </div>
                   <div class="from-group">
-                    <textarea class="form-control" id="textsource<?php echo $prob[$i]["number"]; ?>"  name="textsource<?php echo $prob[$i]["number"]; ?>" rows="10" readonly></textarea>
+                    <textarea class="form-control" id="textsource<?php echo $prob[$i]["number"]; ?>"  name="textsource" rows="10"></textarea>
                   </div>
 
                 </div>

@@ -158,4 +158,29 @@ function DBNewLanguage($param, $c=null){
     }
     return $ret;
 }
+//funcion para extraer datos de un lenguaje
+function DBGetLanguage($lang, $c=null){
+    $cw=false;
+    if($c == null){
+        $cw=true;
+        $c=DBConnect();
+        DBExec($c,"begin work","DBGetLanguage(transaction)");
+    }
+    $sql2="select l.langname as name, l.langextension as extension from langtable as l where l.langnumber=$lang and l.langname !~ '(DEL)'";
+
+    $r=DBExec($c,$sql2." for update","DBGetLanguage(get lang)");
+    $n=DBnlines($r);
+    $ret=1;
+    if($n!=0){
+        $ret=DBRow($r,0);
+        LOGLevel("Language $lang get data",2);
+    }else{
+        LOGLevel("Language $lang get data error",2);
+        $ret=false;
+    }
+    if($cw)
+        DBExec($c,"commit work","DBGetLanguage(commit)");
+
+    return $ret;
+}
 ?>
