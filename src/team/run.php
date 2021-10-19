@@ -4,7 +4,7 @@ $ds = DIRECTORY_SEPARATOR;
 if($ds=="") $ds = "/";
 
 if (isset($_POST["problem"]) && isset($_POST["language"]) &&
-    ((isset($_FILES["sourcefile"]) && isset($_POST["Submit"]) && $_FILES["sourcefile"]["name"]!="") || (isset($_POST["data"]) && isset($_POST["name"])))) {
+    ((isset($_FILES["sourcefile"]) && isset($_POST["Submit"]) && $_FILES["sourcefile"]["name"]!="") || (isset($_POST["textsource"]) && isset($_POST["Submit"]) && $_POST["textsource"]!="") || (isset($_POST["data"]) && isset($_POST["name"])))) {
 
   if ((isset($_POST["confirmation"]) && $_POST["confirmation"] == "confirm") || (isset($_POST["data"]) && isset($_POST["name"]))) {
       //info de la competencia dada
@@ -18,7 +18,8 @@ if (isset($_POST["problem"]) && isset($_POST["language"]) &&
        }
        $prob = myhtmlspecialchars($_POST["problem"]);
        $lang = myhtmlspecialchars($_POST["language"]);
-       //si no es numerico entra
+
+        //si no es numerico entra
        if(!is_numeric($prob)) {
            // recibe el número del concurso
            // devuelve una matriz, donde cada línea tiene el número de atributos (número de problema), problema (nombre del problema),
@@ -93,23 +94,54 @@ if (isset($_POST["problem"]) && isset($_POST["language"]) &&
 	                exit;
                 }
            } else {
-               //
-                $type=myhtmlspecialchars($_FILES["sourcefile"]["type"]);
-                $size=myhtmlspecialchars($_FILES["sourcefile"]["size"]);
-                $name=myhtmlspecialchars($_FILES["sourcefile"]["name"]);
-                $temp=myhtmlspecialchars($_FILES["sourcefile"]["tmp_name"]);
+                //para textsource
+                if(!isset($_FILES["sourcefile"]) || $_FILES["sourcefile"]["name"]==''){
+                    //application/octet-stream 40 print.py2 /tmp/phpiRK8fB
+                    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $cad=substr(str_shuffle($permitted_chars), 0, 6);
+                    $temp="/tmp/php".$cad;
+                    @file_put_contents($temp, $_POST["textsource"], FILE_APPEND | LOCK_EX);
+                    $type='application/octet-stream';
+                    $size=strlen($_POST["textsource"]);
+                    $pdata=DBGetProblemData($prob);
+                    $ldata=DBGetLanguage($lang);
+                    $name=$pdata[0]["basefilename"].".".$ldata["extension"];
+                    if ($size > $ct["contestmaxfilesize"]) {
 
-                if ($size > $ct["contestmaxfilesize"]) {
+    	                 LOGLevel("User {$_SESSION["usertable"]["username"]} tried to submit file " .
+    		                   "$name with $size bytes ({$ct["contestmaxfilesize"]} max allowed).", 1);
+    	                 MSGError("File size exceeds the limit allowed.");//El tamaño del archivo supera el límite permitido.
+    	                 ForceLoad($runteam);
+                     }
+                     if (strlen($name)>100) {
+    	                 IntrusionNotify("file upload problem.");//problema al cargar
+    	                 ForceLoad("../index.php");//index.php
+                     }
 
-	                 LOGLevel("User {$_SESSION["usertable"]["username"]} tried to submit file " .
-		                   "$name with $size bytes ({$ct["contestmaxfilesize"]} max allowed).", 1);
-	                 MSGError("File size exceeds the limit allowed.");//El tamaño del archivo supera el límite permitido.
-	                 ForceLoad($runteam);
-                 }
-                 if (!is_uploaded_file($temp) || strlen($name)>100) {
-	                 IntrusionNotify("file upload problem.");//problema al cargar
-	                 ForceLoad("../index.php");//index.php
-                 }
+                }else{
+                    $temp=myhtmlspecialchars($_FILES["sourcefile"]["tmp_name"]);
+
+                    @file_put_contents($temp, $_POST["textsource"], LOCK_EX);
+                    $type=myhtmlspecialchars($_FILES["sourcefile"]["type"]);
+                    $size=myhtmlspecialchars($_FILES["sourcefile"]["size"]);
+                    $name=myhtmlspecialchars($_FILES["sourcefile"]["name"]);
+
+                    //MSGError($type." ".$size." ".$name." ".$temp);///tmp/phpwSC8Z5
+
+                    //application/octet-stream 40 print.py2 /tmp/phpiRK8fB
+                    if ($size > $ct["contestmaxfilesize"]) {
+
+    	                 LOGLevel("User {$_SESSION["usertable"]["username"]} tried to submit file " .
+    		                   "$name with $size bytes ({$ct["contestmaxfilesize"]} max allowed).", 1);
+    	                 MSGError("File size exceeds the limit allowed.");//El tamaño del archivo supera el límite permitido.
+    	                 ForceLoad($runteam);
+                     }
+                     if (!is_uploaded_file($temp) || strlen($name)>100) {
+    	                 IntrusionNotify("file upload problem.");//problema al cargar
+    	                 ForceLoad("../index.php");//index.php
+                     }
+                }
+
            }
            //como una validacion
            if(strpos($name,' ') === true || strpos($temp,' ') === true || strpos($name,'/') === true || strpos($temp,'/') === true ||
@@ -138,6 +170,7 @@ if (isset($_POST["problem"]) && isset($_POST["language"]) &&
     //		$ac1=array('runnumber','rundate','rundatediff','rundatediffans','runanswer','runstatus','runjudge','runjudgesite',
     //			   'runjudge1','runjudgesite1','runanswer1','runjudge2','runjudgesite2','runanswer2',
     //			   'autoip','autobegindate','autoenddate','autoanswer','autostdout','autostderr','updatetime');
+
             $param = array('contest'=>$_SESSION["usertable"]["contestnumber"],
 		           'user'=>  $_SESSION["usertable"]["usernumber"],
 		           'problem'=>$prob,
@@ -489,7 +522,7 @@ if($redo) {
             "  	    <input type=\"file\" class=\"form-control\" id=\"sourcefile\" name=\"sourcefile\" size=\"40\" onclick=\"Arquivo()\">\n".
             "   </div>\n".
             "   <div class=\"col-sm-8\">\n".
-            "       <textarea class=\"form-control\" id=\"textsource\"  name=\"textsource\" rows=\"10\" readonly></textarea>\n".
+            "       <textarea class=\"form-control\" id=\"textsource\"  name=\"textsource\" rows=\"10\"></textarea>\n".
             "   </div>\n".
             " </div>\n".
             "  <script language=\"javascript\">\n".

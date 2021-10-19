@@ -143,12 +143,12 @@ for ($i=0; $i<count($cs); $i++) {
 
   echo "  <td class=\"col-3\">" . $clockstr . "&nbsp;</td>\n";
   if($cs[$i]["private"]=='t'){
-	  echo "  <td class=\"col-2 text-danger\">Privado";
+	  echo "  <td class=\"col-3 text-danger\">Privado";
   }else{
-	  echo "  <td class=\"col-2 text-success\">Publico";
+	  echo "  <td class=\"col-3 text-success\">Publico";
   }
   if($_SESSION["usertable"]["usernumber"]==$cs[$i]["user"]){
-      echo "&nbsp;&nbsp;<a href=\"contest.php?contest=".$cs[$i]["number"]."#form_contest\" class=\"btn btn-primary\">Actualizar</a>";
+      echo "&nbsp;&nbsp;&nbsp;<a href=\"contest.php?contest=".$cs[$i]["number"]."#form_contest\" class=\"btn btn-primary\">Actualizar</a>";
   }
   echo "</td>\n";
   echo " </tr>\n";

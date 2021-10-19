@@ -859,7 +859,6 @@ function DBNewRun($param,$c=null,$allowinsert=true) {
 	$runjudge='NULL';
 
 
-
 	$runnumber=-1;
 	$updatetime = -1;
 	$rundatediff = -1;
@@ -1036,16 +1035,17 @@ function DBNewRun($param,$c=null,$allowinsert=true) {
 	}
 	$ret=1;
 	if($insert) {
-
+        //para validacion.....
 		if(substr($filepath,0,7)!="base64:") {
             //importa el archivo a base de datos y devuelve el oid
-			if (($oid = DB_lo_import($c, $filepath)) === false) {
-				DBExec($c, "rollback work", "DBNewRun(rollback-import)");
+            if (($oid = DB_lo_import($c, $filepath)) === false) {
+                DBExec($c, "rollback work", "DBNewRun(rollback-import)");
                 //No se puede crear un objeto grande para el archivo $ filepath.
-				LOGError("DBNewRun: Unable to create a large object for file $filepath.");
-				MSGError("problem importing file $filepath to database. Contact an admin now!");
-				return false;
-			}
+                LOGError("DBNewRun: Unable to create a large object for file $filepath.");
+                MSGError("problem importing file $filepath to database. Contact an admin now!");
+                return false;
+            }
+
 		} else {
 			$filepath = base64_decode(substr($filepath,7));
 			if (($oid = DB_lo_import_text($c, $filepath)) == null) {
