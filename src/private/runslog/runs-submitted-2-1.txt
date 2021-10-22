@@ -1,5 +1,0 @@
-web_127.0.0.1_2_1-b79711a3f379921671eacad81d6ce8a9b92df26b-dato.cpp-1-2-2-1
-web_127.0.0.1_2_1-abf7beccfbbef5eebf78cac111b58d5a89ae75eb-favorito.cpp-2-2-2-1
-web_127.0.0.1_2_1-abf7beccfbbef5eebf78cac111b58d5a89ae75eb-favorito.cpp-2-2-2-1
-web_127.0.0.1_2_1-2ac07132d96d48c228b2886862d87de1cdaf905f-circulo.cpp-2-2-2-1
-web_127.0.0.1_2_1-574448729ef5a1b17f0190ebdf7fce78c2b4c08a-suma.cpp-2-2-2-1

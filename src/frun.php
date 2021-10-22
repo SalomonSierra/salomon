@@ -766,7 +766,7 @@ function DBOpenRunsSNS($contest,$st,$order='run') {
 function DBAllRuns($order='run',$contest='') {
 	$c = DBConnect();
     //saca todas las columnas de una competencia de las tablas runtable,problemtable, langtable, answertable, usertable
-	$sql = "select distinct r.runnumber as number, r.rundatediff as timestamp, r.usernumber as user, " .
+	$sql = "select distinct r.runnumber as number, r.rundatediff as timestamp, r.usernumber as user, r.runfilename as filename, r.rundata as oid, " .
 		"p.problemname as problem, p.problemnumber, r.runstatus as status, l.langname as language, l.langextension as extension, " .
 		"a.yes as yes, p.problemcolor as color, p.problemcolorname as colorname, " .
 

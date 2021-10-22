@@ -66,7 +66,11 @@ for ($i=0; $i<count($run); $i++) {
     }
     echo "  <td>" . dateconvminutes($run[$i]["timestamp"]) . "</td>\n";
     echo "  <td>" . $run[$i]["problemnumber"] . "</td>\n";
-    echo "  <td>" . $run[$i]["language"] . "</td>\n";
+    if($_SESSION["usertable"]["usernumber"]==$run[$i]["user"]){
+        echo "  <td><a href=\"#\" onClick=\"window.open('../filewindow.php?".filedownload($run[$i]["oid"],$run[$i]["filename"])."', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')\">".$run[$i]["language"] ."</a></td>\n";
+    }else{
+        echo "  <td>" . $run[$i]["language"] . "</td>\n";
+    }
 
     if ($run[$i]["answer"] == "" || $run[$i]["answer"] == "Not answerd yet") {
         echo "  <td class=\"text-primary\">Waiting answer...</td>\n";

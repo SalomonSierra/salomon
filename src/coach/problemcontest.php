@@ -68,7 +68,9 @@ for ($i=0; $i<count($prob); $i++) {
 </script>
 
 
-
+<div class="container">
+	<span class="text-success">PARA AÑADIR UN PROBLEMA A UNA COMPETENCIA, SIMPLEMENTE DAR CLICK EN EL BOTON "Añadir"</span>
+</div>
 
 <form name="form0" enctype="multipart/form-data" method="post" action="problem.php">
 	<table class="table table-bordered table-hover">

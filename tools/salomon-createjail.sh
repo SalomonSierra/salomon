@@ -3,7 +3,7 @@ homejail=/home/salomonjail
 [ "$1" != "" ] && homejail=$1
 #esto puede llevar algo de tiempo
 echo "================================================================================="
-echo "============= CREATING $homejail (this might take some time) ==============="
+echo "============ CREANDO $homejail (esto puede llevar algo de tiempo) ==============="
 echo "================================================================================="
 #tiene que estar todos los comando sino salir exit
 for i in setquota ln id chown chmod dirname useradd mkdir cp rm mv apt-get dpkg uname debootstrap schroot; do
@@ -13,27 +13,27 @@ for i in setquota ln id chown chmod dirname useradd mkdir cp rm mv apt-get dpkg 
 		#-n para que la impresion sea en linea
     	echo -n ""
     else
-    	echo command "$i" not found
+    	echo comando "$i" no encontrado
     	exit 1
   	fi
 done
 #para saber si esta como root
 if [ "`id -u`" != "0" ]; then
-  echo "Must be run as root"
+  echo "Debe ejecutar como root"
   exit 1
 fi
 #verifica si existe el archivo de la version nombre y nombreclave
 if [ ! -r /etc/lsb-release ]; then
 	#No se encontró el archivo / etc / lsb-release. ¿Es esta una distribución similar a Ubuntu o Debian?
-	echo "File /etc/lsb-release not found. Is this a ubuntu or debian-like distro?"
+	echo "No se encontró el archivo /etc/lsb-release. ¿Es esta una distribución similar a Ubuntu o Debian?"
 	#Si es así, ejecute el comando
-    echo "If so, execute the command"
+    echo "Si es así, ejecute el comando"
     echo ""
     #DISTRIB_CODENAME=WXYZ > /etc/lsb-release
     echo "DISTRIB_CODENAME=WXYZ > /etc/lsb-release"
     echo ""
     #para guardar el nombre de la versión en ese archivo (reemplace WXYZ con el nombre en clave de su distribución)
-    echo "to save the release name to that file (replace WXYZ with your distro codename)"
+    echo "para guardar el nombre de la versión en ese archivo (reemplace WXYZ con el nombre en clave de su distribución)"
     exit 1
 fi
 #para incluir
@@ -41,20 +41,20 @@ fi
 #verifica si ya existe el directorio
 if [ -d /salomonjail/ ]; then
 	#Parece que ya tienes instalado / salomonjail
-    echo "You seem to have already a /salomonjail installed"
+    echo "Parece que ya tienes instalado /salomonjail"
     #Si desea reinstalarlo, elimínelo primero (por ejemplo, rm / salomonjail) y luego ejecute /etc/icpc/createsalomonjail.sh
-    echo "If you want to reinstall, remove it first (e.g. rm /salomonjail) and then run /etc/icpc/createsalomonjail.sh"
+    echo "Si desea reinstalarlo, elimínelo primero (por ejemplo, rm /salomonjail) y luego ejecute /etc/icpc/createsalomonjail.sh"
     exit 1
 fi
 #si ya existe el fichero y empieza desmontar /sys y /proc
 if [ -f $homejail/proc/cpuinfo ]; then
 	#Parece que ya ha instalado /salomonjail y el /salomonjail/proc parece estar montado
-  	echo "You seem to have already installed /salomonjail and the /salomonjail/proc seems to be mounted"
+  	echo "Parece que ya ha instalado /salomonjail y el /salomonjail/proc parece estar montado"
   	chroot $homejail umount /sys >/dev/nul 2>/dev/null
   	#comando umount es para desmontar
   	chroot $homejail umount /proc >/dev/nul 2>/dev/null
   	#Reinicie el sistema para eliminar dicho punto montado
-  	echo "Please reboot the system to remove such mounted point"
+  	echo "Reinicie el sistema para eliminar dicho punto montado"
   	exit 1
 fi
 #muestra el id del usuario
@@ -73,9 +73,9 @@ EOF
  	sleep 1
 else
 	#El usuario salomonjail ya existe
-	echo "user salomonjail already exists"
+	echo "El usuario salomonjail ya existe"
   	#si desea continuar, primero elimínelo (por ejemplo, userdel salomonjail) y luego ejecute /etc/icpc/createsalomonjail.sh
-  	echo "if you want to proceed, first remove it (e.g. userdel salomonjail) and then run /etc/icpc/createsalomonjail.sh"
+  	echo "si desea continuar, primero elimínelo (por ejemplo, userdel salomonjail) y luego ejecute /etc/icpc/createsalomonjail.sh"
   	exit 1
 fi
 
@@ -119,26 +119,26 @@ FIM
 debootstrap $DISTRIB_CODENAME $homejail
 if [ $? != 0 ]; then
 	#salomonjail fallado no se pudo debootstrap
-  	echo "salomonjail failed to debootstrap"
+  	echo "salomonjail fallado no se pudo debootstrap"
   	exit 1
 else
 	#schroot -l lista los chroot que existen y buscamos que exista salomonjail
 	schroot -l | grep -q salomonjail
 	if [ $? == 0 ]; then
 		#salomonjail instalado con éxito en $ homejail
-  		echo "salomonjail successfully installed at $homejail"
+  		echo "salomonjail instalado con éxito en $homejail"
 	else
 		#*** algún error ha causado que salomonjail no se instale correctamente - lo intentaré de nuevo con diferentes parámetros
-  		echo "*** some error has caused salomonjail not to install properly -- I will try it again with different parameters"
+  		echo "*** algún error ha causado que salomonjail no se instale correctamente  -- lo intentaré de nuevo con diferentes parámetros"
   		echo "location=$homejail" >> /etc/schroot/chroot.d/salomonjail.conf
   		debootstrap $DISTRIB_CODENAME $homejail
   		schroot -l | grep -q salomonjail
   		if [ $? == 0 ]; then
   			#*** salomonjail instalado con éxito en $ homejail
-    		echo "*** salomonjail successfully installed at $homejail"
+    		echo "*** salomonjail instalado con éxito en $homejail"
   		else
   			#*** salomonjail no pudo instalar
-    		echo "*** salomonjail failed to install"
+    		echo "*** salomonjail no pudo instalar"
     		exit 1
   		fi
 	fi
@@ -146,7 +146,7 @@ fi
 
 
 #Poblando
-echo "*** Populating $homejail"
+echo "*** Poblando $homejail"
 #toda la instruccion escribe en en la ruta dada
 cat <<EOF > /home/salomonjail/tmp/populate.sh
 #!/bin/bash
