@@ -34,7 +34,7 @@ if(isset($_GET["order"]) && $_GET["order"] != "") {
             <?php if($status == "status.php") { ?>
             <th scope="col"><a href="<?php echo $status; ?>?order=user">User</a></th>
             <?php } ?>
-            <th scope="col">Time</th>
+            <th scope="col">Submit Time</th>
             <th scope="col"><a href="<?php echo $status; ?>?order=problem">Problem</a></th>
             <th scope="col"><a href="<?php echo $status; ?>?order=language">Language</a></th>
 
@@ -64,7 +64,7 @@ for ($i=0; $i<count($run); $i++) {
 	        echo "  <td>" . $us[$run[$i]["user"]] . "</td>\n";
         }
     }
-    echo "  <td>" . dateconvminutes($run[$i]["timestamp"]) . "</td>\n";
+    echo "  <td>" . dateconv($run[$i]["updatetime"]) . "</td>\n";
     echo "  <td>" . $run[$i]["problemnumber"] . "</td>\n";
     echo "  <td>" . $run[$i]["language"] . "</td>\n";
 
@@ -282,7 +282,7 @@ $(document).ready(function(){
 				   success:function(data)
 				   {
 					   alert(data);
-					   
+
 				   }
 			  });
 		 }
