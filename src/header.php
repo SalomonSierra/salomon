@@ -58,7 +58,7 @@ require_once("version.php");
 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
+		<link rel="stylesheet" href="bootstrap4/css/modern-business.css">
 <?php
 if(function_exists("globalconf") && function_exists("sanitizeVariables")){
 	if(isset($_GET["name"]) && $_GET["name"] !="" ){
@@ -89,20 +89,21 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")){
 }
 ?>
 	</head>
-	<body onload="document.form1.name.focus()"><!--para que se onload: ejecuta una funcion inmediatamente en este caso focus-->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		  <a class="navbar-brand text-primary" href="index.php">Salomon</a>
+	<body onload="document.form1.name.focus()" class="p-0"><!--para que se onload: ejecuta una funcion inmediatamente en este caso focus-->
+		<!--D0D7E8-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background:#C28FD9;">
+		  <a class="navbar-brand" href="index.php">Salomon</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#first" aria-controls="first" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 
 		  <div class="collapse navbar-collapse" id="first">
 		    <ul class="navbar-nav mr-auto">
-		        <li class="nav-item"> <a class="nav-link text-primary" href="status.php">Status</a> </li>
-		        <li class="nav-item"> <a class="nav-link text-primary" href="problem.php">Problemas</a> </li>
-		        <li class="nav-item"> <a class="nav-link text-primary" href="contest.php">Competencia</a> </li>
+		        <li class="nav-item"><strong> <a class="nav-link active" href="status.php">Status</a></strong> </li>
+		        <li class="nav-item"><strong> <a class="nav-link active" href="problem.php">Problemas</a></strong> </li>
+		        <li class="nav-item"><strong> <a class="nav-link active" href="contest.php">Competencia</a></strong> </li>
 		        <!--<li class="nav-item"> <a class="nav-link text-primary" href="ranklist.php">Ranklist</a> </li>-->
-		        <li class="nav-item"> <a class="nav-link text-primary" href="faq.php">Faq</a> </li>
+		        <li class="nav-item"><strong> <a class="nav-link active" href="faq.php">Faq</a></strong> </li>
 
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0">
