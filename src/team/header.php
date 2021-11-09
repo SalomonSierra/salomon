@@ -22,6 +22,7 @@ $runteam='run.php';
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="<?php echo  $loc; ?>/Css.php" type="text/css">
+        <link rel="stylesheet" href="../bootstrap4/css/modern-business.css">
 <?php
 //funcion retorna true o false si no existe usertable en session false si es id diferente false
 //si ho hay usertable en session  FALSE
@@ -44,10 +45,10 @@ if($_SESSION["usertable"]["usertype"] != "team"){
         <script language="javascript" src="../reload.js"></script>
 
         </head>
-        <body onload="Comecar()" onunload="Parar()">
+        <body class="p-0" onload="Comecar()" onunload="Parar()">
 
 
-            <nav class="navbar navbar-expand-md navbar-light bg-dark">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
               <div class="container">
 
 
@@ -57,17 +58,17 @@ if($_SESSION["usertable"]["usertype"] != "team"){
 
                 <div class="collapse navbar-collapse"id="first">
 
-                  <a class="navbar-brand text-primary"href="index.php">
+                  <a class="navbar-brand"href="index.php">
 
                     Salomon
                   </a>
                   <ul class="navbar-nav mr-auto">
 
 
-                    <li class="nav-item"> <a class="nav-link text-primary" href="problemset.php">Problemas</a> </li>
-                    <li class="nav-item"> <a class="nav-link text-primary" href="status.php">Status</a> </li><!---->
-                    <li class="nav-item"> <a class="nav-link text-primary" href="contest.php">Competencias</a> </li><!--index.php-->
-                    <li class="nav-item"> <a class="nav-link text-primary" href="faq.php">Faq</a> </li><!--index.php-->
+                    <li class="nav-item"><strong> <a class="nav-link active" href="problemset.php">Problemas</a></strong> </li>
+                    <li class="nav-item"><strong> <a class="nav-link active" href="status.php">Status</a></strong> </li><!---->
+                    <li class="nav-item"><strong> <a class="nav-link active" href="contest.php">Competencias</a> </strong></li><!--index.php-->
+                    <li class="nav-item"><strong> <a class="nav-link active" href="faq.php">Faq</a></strong> </li><!--index.php-->
                     <!--<li class="nav-item"> <a class="nav-link text-primary" href="user.php">Clarifications</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="problem.php">Tasks</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="../index1.php">Backups</a> </li>-->

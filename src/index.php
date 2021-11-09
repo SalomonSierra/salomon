@@ -1,10 +1,57 @@
 <?php
 include 'header.php';
 ?>
+<header>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+	  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+	  <!-- Slide One - Set the background image for this slide in the line below
+	  .contenedor:hover .imagen {-webkit-transform:scale(1.3);transform:scale(1.3);}
+.contenedor {overflow:hidden;}
+-->
+	  <div class="carousel-item active" style="background-image: url('images/informatica.jpg')">
+		<div class="carousel-caption d-none d-md-block">
+		  <h3>INFRAESTRUCTURA BLOQUE B</h3>
+		  <p>UNSXX</p>
+		</div>
+	  </div>
+	  <!-- Slide Two - Set the background image for this slide in the line below -->
+	  <div class="carousel-item" style="background-image: url('images/icpc.jpg')">
+		<div class="carousel-caption d-none d-md-block">
+		  <h3>ICPC</h3>
+		  <p>MUNDIAL</p>
+		</div>
+	  </div>
+	  <!-- Slide Three - Set the background image for this slide in the line below http://placehold.it/1900x1080-->
+	  <div class="carousel-item" style="background-image: url('images/bloqueA.jpg')">
+		<div class="carousel-caption d-none d-md-block">
+		  <h3>INGENIERIA INFORMATICA</h3>
+		  <p>UNSXX</p>
+		  <a href="#" class="btn btn-outline-warning">ver bibliografia</a>
+		  <a href="https://www.facebook.com/Ingenieria-Informatica-UNSXX-754225731289017" class="btn btn-outline-primary">facebook</a>
+		  <a href="#" class="btn btn-outline-primary">twiter</a>
+		</div>
+	  </div>
+	</div>
+	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	  <span class="sr-only">Previous</span>
+	</a>
+	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	  <span class="sr-only">Next</span>
+	</a>
+  </div>
+</header>
 
 
 
 	<div class="container">
+
 		<br><br><br>
 		<div class="row">
 			<div class="col-lg-4 mb-4">
@@ -209,7 +256,7 @@ $(document).ready(function(){
 				   success:function(data)
 				   {
 					   alert(data);
-					  
+
 				   }
 			  });
 		 }
