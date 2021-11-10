@@ -63,12 +63,19 @@ if($_SESSION["usertable"]["usertype"] != "team"){
                     Salomon
                   </a>
                   <ul class="navbar-nav mr-auto">
+                      <style media="screen">
+      					.font:hover{
+      						background:#53534F;
+      						border: 1px solid #1161BO;
+      						border-radius: 4px;
+      						color:#EAEAE4 !important;
+      					}
+      				</style>
 
-
-                    <li class="nav-item"><strong> <a class="nav-link active" href="problemset.php">Problemas</a></strong> </li>
-                    <li class="nav-item"><strong> <a class="nav-link active" href="status.php">Status</a></strong> </li><!---->
-                    <li class="nav-item"><strong> <a class="nav-link active" href="contest.php">Competencias</a> </strong></li><!--index.php-->
-                    <li class="nav-item"><strong> <a class="nav-link active" href="faq.php">Faq</a></strong> </li><!--index.php-->
+                    <li class="nav-item font"><strong> <a class="nav-link active" href="problemset.php">Problemas</a></strong> </li>
+                    <li class="nav-item font"><strong> <a class="nav-link active" href="status.php">Status</a></strong> </li><!---->
+                    <li class="nav-item font"><strong> <a class="nav-link active" href="contest.php">Competencias</a> </strong></li><!--index.php-->
+                    <li class="nav-item font"><strong> <a class="nav-link active" href="faq.php">Faq</a></strong> </li><!--index.php-->
                     <!--<li class="nav-item"> <a class="nav-link text-primary" href="user.php">Clarifications</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="problem.php">Tasks</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="../index1.php">Backups</a> </li>-->
