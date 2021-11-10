@@ -99,11 +99,20 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")){
 
 		  <div class="collapse navbar-collapse" id="first">
 		    <ul class="navbar-nav mr-auto">
-		        <li class="nav-item"><strong> <a class="nav-link active" href="status.php">Status</a></strong> </li>
-		        <li class="nav-item"><strong> <a class="nav-link active" href="problem.php">Problemas</a></strong> </li>
-		        <li class="nav-item"><strong> <a class="nav-link active" href="contest.php">Competencia</a></strong> </li>
+				<style media="screen">
+					.font:hover{
+						background:#53534F;
+						border: 1px solid #1161BO;
+						border-radius: 4px;
+						color:#EAEAE4 !important;
+					}
+				</style>
+				<li class="nav-item"><strong> <a class="nav-link active font" href="status.php">Status</a></strong> </li>
+		        <li class="nav-item"><strong> <a class="nav-link active font" href="problem.php">Problemas</a></strong> </li>
+		        <li class="nav-item"><strong> <a class="nav-link active font" href="contest.php">Competencia</a></strong> </li>
 		        <!--<li class="nav-item"> <a class="nav-link text-primary" href="ranklist.php">Ranklist</a> </li>-->
-		        <li class="nav-item"><strong> <a class="nav-link active" href="faq.php">Faq</a></strong> </li>
+
+				<li class="nav-item"><strong> <a class="nav-link active font" href="faq.php">Faq</a></strong> </li>
 
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0">
