@@ -405,13 +405,21 @@ if($redo) {
 				$ee = $pr[$h]["number"];
 				if($detail) {
 					if($des) {
-						$strtmp .= "<td nowrap>";
+						//$strtmp .= "<td nowrap>"; antes con globos
 //					$name=$score[$e]["problem"][$ee]["name"];
 						if(isset($score[$e]["problem"][$ee]["solved"]) && $score[$e]["problem"][$ee]["solved"]) {
+							$strtmp .= "<td nowrap bgcolor=\"#C8F3C9\" style=\"color:#000000;\">";
 							$strtmp .= "<img alt=\"".$score[$e]["problem"][$ee]["colorname"].":\" width=\"18\" ".
 								"src=\"" . balloonurl($score[$e]["problem"][$ee]["color"]) ."\" />";
 						}
 						else {
+							if (isset($score[$e]["problem"][$ee]['count']) && $score[$e]["problem"][$ee]["count"]!=0) {
+								$strtmp .= "<td nowrap bgcolor=\"#EAA3A3\">";//#D4F2BB
+							} else{
+								$strtmp .= "<td nowrap>";
+							}
+
+
 							if($level>3 && isset($score[$e]["problem"][$ee]["judging"]) && $score[$e]["problem"][$ee]["judging"])
 								$strtmp .= "<img alt=\"\" width=\"18\" ".
 									"src=\"$loc/images/bigballoontransp-blink.gif\" />\n";
@@ -439,10 +447,12 @@ if($redo) {
 					}
 					if($des)
 						$strtmp .= "</td>";
+
 				}
 			}
 			if(!$des) $strtmp .= "&nbsp;</td>\n";
 		}
+
 		$strtmp .= "  <td nowrap>" .
 			$score[$e]["totalcount"] . " (" . $score[$e]["totaltime"] . "min)</td>\n";
 		$strtmp .= " </tr>\n";
