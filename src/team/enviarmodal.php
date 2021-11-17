@@ -80,4 +80,21 @@ document.getElementById('sourcefile'+"<?php echo $prob[$i]["number"]; ?>").addEv
 
 }, false);
 
+var editor=CodeMirror.fromTextArea
+(document.getElementById('textsource'+"<?php echo $prob[$i]["number"]; ?>"),{
+    mode: "text/groovy",    // Darse cuenta de resaltado de código maravilloso
+
+    mode: "text/x-c++src", // Darse cuenta del resaltado de código C
+    mode: "text/x-java", // Darse cuenta del resaltado de código Java
+    lineNumbers: true,  // Mostrar número de línea
+    theme: "dracula",   // Establecer tema
+    lineWrapping: true, // Código plegable
+    foldGutter: true,
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+    matchBrackets: true    // Correspondencia de corchetes
+    // readOnly: true, // solo lectura
+
+});
+//editor.setSize("300","300");
+editor.setValue("\n\n\n\n\n\n\n\n\n");
 </script>

@@ -390,7 +390,7 @@ if($redo) {
     $_SESSION['forceredo']=false;
     if(($st = DBContestClockInfo($_SESSION["usertable"]["contestnumber"])) == null)
         ForceLoad("../index.php");//index.php
-    $strtmp="<br>\n<table class=\"table table-hover\">\n <thead>\n <tr>\n  <th scope=\"col\">Run #</th>\n<th scope=\"col\">Time</th>\n".
+    $strtmp="<br>\n<div class=\"\">\n<table class=\"table table-hover\">\n <thead>\n <tr>\n  <th scope=\"col\">Run #</th>\n<th scope=\"col\">Time</th>\n".
         "  <th scope=\"col\">Problem</th>\n  <th scope=\"col\">Language</th>\n  <th scope=\"col\">Answer</th>\n  <th scope=\"col\">File</th>\n </tr>\n </thead>\n<tbody>\n";
     $strcolors = "0";
     // recibe el número del concurso, el número del sitio y el número del usuario
@@ -457,7 +457,7 @@ if($redo) {
         $strtmp .= $run[$i]["filename"] . "</a>&nbsp;&nbsp;";
         //mejorado
 
-        $strtmp .= "<a href=\"#\" class=\"btn btn-primary\" style=\"font-weight:bold\" onClick=\"window.open('../filewindow.php?".filedownload($run[$i]["oid"],$run[$i]["filename"])."', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')\">Ver Codigo</a>\n";
+        $strtmp .= "<a href=\"#\" class=\"btn btn-primary\" style=\"font-weight:bold\" onClick=\"window.open('../filewindow1.php?".filedownload($run[$i]["oid"],$run[$i]["filename"])."', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')\">Ver Codigo</a>\n";
 
 
         $strtmp .= "</td>\n";
@@ -465,7 +465,7 @@ if($redo) {
         $strtmp .= " </tr>\n";
     }
     //fin de la tabla runs
-    $strtmp .= "</tbody>\n</table>\n";
+    $strtmp .= "</tbody>\n</table>\n</div>\n";
 
     if (count($run) == 0) $strtmp .= "<br><center><b><font color=\"#ff0000\">AUN NO ENVIASTE NINGUN PROBLEMA</font></b></center>";
     $linesubmission = @file_get_contents($_SESSION["locr"] . $ds . "private" . $ds . 'run-using-command.config');
@@ -575,6 +575,25 @@ echo $strtmp;
 </html>
 <script language="JavaScript" src="../sha256.js"></script>
 <script language="JavaScript" src="../hex.js"></script>
+<!--para editor de codigo-->
+<script type="text/javascript">
+    var editor=CodeMirror.fromTextArea
+    (document.getElementById('textsource'),{
+        mode: "text/groovy",    // Darse cuenta de resaltado de código maravilloso
+
+        mode: "text/x-c++src", // Darse cuenta del resaltado de código C
+        mode: "text/x-java", // Darse cuenta del resaltado de código Java
+        lineNumbers: true,  // Mostrar número de línea
+        theme: "dracula",   // Establecer tema
+        lineWrapping: true, // Código plegable
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        matchBrackets: true    // Correspondencia de corchetes
+        // readOnly: true, // solo lectura
+
+    });
+    //editor.setSize("800","350");
+</script>
 <script>
 function leerArchivo(e) {
   var archivo = e.target.files[0];

@@ -47,7 +47,7 @@ if (isset($_POST["answer"]) && isset($_POST["open"]) && $_POST["open"]=="Abrir e
             //jefe ejecutar terminar
 			if (DBChiefRunGiveUp($_POST["number"], $_SESSION["usertable"]["contestnumber"]))
 				MSGError("Run returned.");//Run regresó.
-            
+
             ForceLoad($runphp);
 	}
 }
@@ -151,7 +151,7 @@ for ($i=0;$i<count($b);$i++) {
         <td width="83%">
 <?php //'
 echo "<a href=\"../filedownload.php?". filedownload($a["sourceoid"],$a["sourcename"]) . "\">" . $a["sourcename"] . "</a>\n";
-echo "<a href=\"#\" class=\"btn btn-primary\" onClick=\"window.open('../filewindow.php?" .
+echo "<a href=\"#\" class=\"btn btn-primary\" onClick=\"window.open('../filewindow1.php?" .
 filedownload($a["sourceoid"],$a["sourcename"])  ."', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')\">Ver</a>\n";
 ?>
         </td>
