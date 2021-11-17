@@ -23,6 +23,18 @@ $runteam='run.php';
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="<?php echo  $loc; ?>/Css.php" type="text/css">
         <link rel="stylesheet" href="../bootstrap4/css/modern-business.css">
+        <!--para editor de codigo-->
+        <script src="../codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="../codemirror/lib/codemirror.css">
+        <script src="../codemirror/mode/groovy/groovy.js"></script>
+        <script src="../codemirror/mode/clike/clike.js"></script>
+        <!--pegado de codigo-->
+        <link rel="stylesheet" href="../codemirror/addon/fold/foldgutter.css"/>
+        <script src="../codemirror/addon/fold/foldcode.js"></script>
+        <script src="../codemirror/addon/fold/foldgutter.js"></script>
+        <script src="../codemirror/addon/fold/brace-fold.js"></script>
+        <script src="../codemirror/addon/fold/comment-fold.js"></script>
+        <link rel="stylesheet" href="../codemirror/theme/dracula.css">
 <?php
 //funcion retorna true o false si no existe usertable en session false si es id diferente false
 //si ho hay usertable en session  FALSE

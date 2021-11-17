@@ -80,6 +80,18 @@ if($_SESSION["usertable"]["usertype"] != "team"){
 
 ?>
         <script language="javascript" src="../reload.js"></script>
+        <!--para editor de codigo-->
+        <script src="../codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="../codemirror/lib/codemirror.css">
+        <script src="../codemirror/mode/groovy/groovy.js"></script>
+        <script src="../codemirror/mode/clike/clike.js"></script>
+        <!--pegado de codigo-->
+        <link rel="stylesheet" href="../codemirror/addon/fold/foldgutter.css"/>
+        <script src="../codemirror/addon/fold/foldcode.js"></script>
+        <script src="../codemirror/addon/fold/foldgutter.js"></script>
+        <script src="../codemirror/addon/fold/brace-fold.js"></script>
+        <script src="../codemirror/addon/fold/comment-fold.js"></script>
+        <link rel="stylesheet" href="../codemirror/theme/dracula.css">
 
         </head>
         <body onload="Comecar()" onunload="Parar()">

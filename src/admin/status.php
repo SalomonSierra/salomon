@@ -67,7 +67,7 @@ for ($i=0; $i<count($run); $i++) {
     echo "  <td>" . dateconv($run[$i]["updatetime"]) . "</td>\n";
     echo "  <td>" . $run[$i]["problemnumber"] . "</td>\n";
     if($_SESSION["usertable"]["usernumber"]==$run[$i]["user"] || $_SESSION["usertable"]["usernumber"]==0){
-        echo "  <td><a href=\"#\" onClick=\"window.open('../filewindow.php?".filedownload($run[$i]["oid"],$run[$i]["filename"])."', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')\">".$run[$i]["language"] ."</a></td>\n";
+        echo "  <td><a href=\"#\" onClick=\"window.open('../filewindow1.php?".filedownload($run[$i]["oid"],$run[$i]["filename"])."', 'View - SOURCE', 'width=680,height=600,scrollbars=yes,resizable=yes')\">".$run[$i]["language"] ."</a></td>\n";
     }else{
         echo "  <td>" . $run[$i]["language"] . "</td>\n";
     }

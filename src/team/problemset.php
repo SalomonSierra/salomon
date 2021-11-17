@@ -121,7 +121,10 @@ function enviar(problem){
 	var problem = $('#problemnumber'+problem).val();
 	var language = $('#language'+problem).val();
 	var source = String($('#sourcefile'+problem).val());
-	if(problem != '' && language != -1 ){//&& source.length > 1 
+
+	
+
+	if(problem != '' && language != -1 ){//&& source.length > 1
 
 		//crea un nuevo objet de stipo FormData
 
