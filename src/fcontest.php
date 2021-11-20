@@ -1485,10 +1485,13 @@ function siteclock2($contest){
     if(($s=DBContestClockInfo($contest)) == null)
         ForceLoad("../index.php");//genera script para redireccion con el parametro dada
 
-    //if($s["siteactive"]!="t")
-    //    return array("sitio no activa",-1000000000);//site is not active
-    if(!$s["contestrunning"])
-        return array("competencia no corriendo",-1000000000);//contest not running
+    if($s["contestactive"]!="t")
+        return array("Competencia no activa",-1000000000);//site is not active
+    if(!$s["contestrunning"]){
+        $msg=dateconv($s["contestendeddate"]);
+        return array("Terminó ( $msg )",-1000000000);//contest not running
+    }
+
     if($s["currenttime"]<0){
         $t = - $s["currenttime"];
         if($t>3600*24){//un dia
@@ -1519,21 +1522,22 @@ function siteclock2($contest){
             $str.=((int)($t/3600)).'h ';
             $t=$t%3600;
         }
+        $msgs="Corriendo ( Quedan ";
         if($t>60){
             $t=(int)($t/60);
-            return array($str.$t." minuto(s) Quedan",$s["currenttime"]);
+            return array($msgs.$str.$t." minuto(s) )",$s["currenttime"]);
         }else if($str==''){
             if($t>0){
-                return array($t. " second(s) Quedan",$s["currenttime"]);
+                return array($msgs.$t. " second(s) )",$s["currenttime"]);
             }else{
                 $t=(int)(-$t/60);
                 return array($t."min. de tiempo extra",$s["currenttime"]);
             }
         }else{
-            return array($str." Quedan",$s["currenttime"]);
+            return array($msgs.$str." )",$s["currenttime"]);
         }
     }else{
-        return array("no empezado",-1000000000);
+        return array("No empezado",-1000000000);
     }
 
 }
