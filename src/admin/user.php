@@ -229,7 +229,7 @@ El archivo debe estar en el formato definido en el manual de administración.</b
     <!--To create/edit one user, enter the data below.<br>
     Note that any changes will overwrite the already defined data.<br>
     (Specially care if you use a user number that is already existent.)-->
-    <a id="form_user"></a>
+    <a id="form_user" class="h5 btn text-primary">FORMULARIO PARA REGISTRAR/ACTUALIZAR USUARIO</a>
     <!--<b>Para crear / editar un usuario, ingrese los datos a continuación. <br>
     Tenga en cuenta que cualquier cambio sobrescribirá los datos ya definidos. <br>
     (Tenga especial cuidado si usa un número de usuario que ya existe).<br>
@@ -254,7 +254,7 @@ El archivo debe estar en el formato definido en el manual de administración.</b
       <div class="form-group row">
           <label for="usernumber" class="col-sm-4 col-form-label">User Number:</label>
           <div class="col-sm-8">
-              <input type="text" name="usernumber" id="usernumber" class="form-control" value="<?php if(isset($u)) echo $u["usernumber"]; ?>" maxlength="20" />
+              <input type="text" name="usernumber" id="usernumber" class="form-control" value="<?php if(isset($u)) echo $u["usernumber"]; else echo DBUserNumberMax(); ?>" maxlength="20" readonly="readonly"/>
           </div>
       </div>
       <div class="form-group row">
@@ -310,9 +310,9 @@ El archivo debe estar en el formato definido en el manual de administración.</b
       </div>
 
       <div class="form-group row">
-          <label for="userdesc" class="col-sm-4 col-form-label">User Description:</label>
+          <label for="userdescr" class="col-sm-4 col-form-label">University:</label>
           <div class="col-sm-8">
-              <input type="text" name="userdesc" id="userdesc" class="form-control" value="<?php if(isset($u)) {
+              <input type="text" name="userdescr" id="userdescr" class="form-control" value="<?php if(isset($u)) {
               if($u['usershortinstitution']!='')
                   echo '[' . $u['usershortinstitution'] .']';
               if($u['userflag']!='') {
@@ -380,68 +380,15 @@ El archivo debe estar en el formato definido en el manual de administración.</b
 </html>
 <script language="JavaScript" src="../sha256.js"></script>
 <script language="JavaScript" src="../hex.js"></script>
+<?php include '../updateform.php';?>
 <script>
-
-$(document).ready(function(){
-
-     //update
-     $('#update_button').click(function(){
-		 var username,userdesc,userfull,passHASHo,passHASHn;
-		 if($('#passwordn1').val() != $('#passwordn2').val()){
-			 alert('password confirmacion debe ser igual');
-		 }else{
-			 if($('#passwordn1').val() == $('#passwordo').val()){
-				 alert('password nuevo debe ser diferente al anterior');
-			 }else{
-				 username = $('#username').val();
-				 userdesc = $('#userdesc').val();
-				 userfull = $('#userfull').val();
-				 passHASHo = js_myhash(js_myhash($('#passwordo').val())+'<?php echo session_id(); ?>');
-				 passHASHn = bighexsoma(js_myhash($('#passwordn2').val()),js_myhash($('#passwordo').val()));
-				 $('#passwordn1').val('                                                     ');
-				 $('#passwordn2').val('                                                     ');
-				 $('#passwordo').val('                                                     ');
-
-				 $.ajax({
-
-						  url:"../include/i_optionlower.php",
-						  method:"POST",
-						  data: {username:username, userdesc:userdesc, userfullname:userfull, passwordo:passHASHo, passwordn:passHASHn},
-
-						  success:function(data)
-						  {
-							   //alert(data);
-							   if(data.indexOf('Data updated.') !== -1)
-							   {
-									alert("Data updated.");
-									$('#updateModal').hide();
-									location.reload();
-							   }
-							   else
-							   {
-								   if (data.indexOf('Incorrect password')!== -1) {
-									   alert("Incorrect password");
-
-									   //location.href="../indexs.php";
-								   }else{
-									   alert(data);
-								   }
-
-							   }
-
-						  }
-				 });
-
-
-
-
-			 }
-		 }
-
-
-
-     });
-
+$(function(){
+  //Para escribir solo letras
+  $('#userfullname').validCampoFabian(' abcdefghijklmnñopqrstuvwxyzáéiou');
+  $('#userdescr').validCampoFabian(' abcdefghijklmnñopqrstuvwxyzáéiou');
+  //Para escribir solo numeros
+  $('#usernumber').validCampoFabian('0123456789');
+  $('#userip').validCampoFabian('0123456789.');
 
 });
 </script>

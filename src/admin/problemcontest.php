@@ -193,21 +193,8 @@ for ($i=0; $i<count($prob); $i++) {
 </html>
 <script language="JavaScript" src="../sha256.js"></script>
 <script language="JavaScript" src="../hex.js"></script>
+<?php include '../updateform.php';?>
 <script>
-function mostrar(id) {
-    $(document).ready(function () {
-		if(id==-1){
-			$('#tituloes').val("Subir Problema");
-			$('#problemnumber').val("");
-			$("#problemnumber").prop('readonly', false);
-		}else{
-			$('#tituloes').val("Actulizar Problema");
-			$('#problemnumber').val(id);
-			$("#problemnumber").prop('readonly', true);
-		}
-
-    });
-}
 //var valor=true;
 function save(problem,contest,data) {
 	//alert(data+" "+user+" "+contest);
@@ -233,155 +220,11 @@ function save(problem,contest,data) {
 			 success:function(data)
 			 {
 				  alert(data);
-				  /*if(data.indexOf('Data updated.') !== -1)
-				  {
-					   alert("Data updated.");
-					   $('#updateModal').hide();
-					   location.reload();
-				  }
-				  else
-				  {
-					  if (data.indexOf('Incorrect password')!== -1) {
-						  alert("Incorrect password");
-
-						  //location.href="../indexs.php";
-					  }else{
-						  alert(data);
-					  }
-
-				  }*/
 
 			 }
 	});
 
 
-
-	/*$(document).ready(function () {
-		if(id==-1){
-			$('#tituloes').val("Subir Problema");
-			$('#problemnumber').val("");
-			$("#problemnumber").prop('readonly', false);
-		}else{
-			$('#tituloes').val("Actulizar Problema");
-			$('#problemnumber').val(id);
-			$("#problemnumber").prop('readonly', true);
-		}
-
-    });*/
 }
-$(document).ready(function(){
 
-	 //para subir problema
-
-	$('#Submit3').click(function(){
-
-		 var problemnumber = $('#problemnumber').val();
-		 var problemname = $('#problemname').val();
-		 var probleminput = String($('#probleminput').val());
-		 var colorname = $('#colorname').val();
-		 var color = $('#color').val();
-
-		 if(problemnumber != '' && problemname != '' && probleminput.length > 1 && colorname != '' && color != ''){
-
-			 //crea un nuevo objet de stipo FormData
-
-			 var formdata= new FormData($("#form_submit")[0]);
-			 //alert(formdata);
-			 $.ajax({
-				  data: formdata,
-				  url:"../include/i_problem.php",
-				  type:"POST",
-				  contentType: false,
-				  processData: false,
-
-				  success:function(data)
-				  {
-					  if(data == "Yes"){
-						  alert(".:YES:.");
-						  $('#subproblem').hide();
-						  location.reload();
-					  }else {
-					  	   if(data == "No"){
-							   alert("Error al subir");
-							   $('#subproblem').hide();
-							   location.reload();
-						   }else {
-						   	   alert(data);
-							   $('#subproblem').hide();
-							   location.reload();
-						   }
-					  }
-
-
-				  }
-			 });
-
-		 }
-		 else
-		 {
-			  alert("Both Fields are required");
-		 }
-
-
-	});
-	//update
-	$('#update_button').click(function(){
-		var username,userdesc,userfull,passHASHo,passHASHn;
-		if($('#passwordn1').val() != $('#passwordn2').val()){
-			alert('password confirmacion debe ser igual');
-		}else{
-			if($('#passwordn1').val() == $('#passwordo').val()){
-				alert('password nuevo debe ser diferente al anterior');
-			}else{
-				username = $('#username').val();
-				userdesc = $('#userdesc').val();
-				userfull = $('#userfull').val();
-				passHASHo = js_myhash(js_myhash($('#passwordo').val())+'<?php echo session_id(); ?>');
-				passHASHn = bighexsoma(js_myhash($('#passwordn2').val()),js_myhash($('#passwordo').val()));
-				$('#passwordn1').val('                                                     ');
-				$('#passwordn2').val('                                                     ');
-				$('#passwordo').val('                                                     ');
-
-				$.ajax({
-
-						 url:"../include/i_optionlower.php",
-						 method:"POST",
-						 data: {username:username, userdesc:userdesc, userfullname:userfull, passwordo:passHASHo, passwordn:passHASHn},
-
-						 success:function(data)
-						 {
-							  //alert(data);
-							  if(data.indexOf('Data updated.') !== -1)
-							  {
-								   alert("Data updated.");
-								   $('#updateModal').hide();
-								   location.reload();
-							  }
-							  else
-							  {
-								  if (data.indexOf('Incorrect password')!== -1) {
-									  alert("Incorrect password");
-
-									  //location.href="../indexs.php";
-								  }else{
-									  alert(data);
-								  }
-
-							  }
-
-						 }
-				});
-
-
-
-
-			}
-		}
-
-
-
-	});
-
-
-});
 </script>

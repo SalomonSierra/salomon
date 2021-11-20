@@ -91,7 +91,7 @@ if(!isset($_POST['noflush'])){
 
             <ul class="navbar-nav d-inline-block">
                 <li class="nav-item d-inline-block dropdown">
-                    <a class="btn btn-outline-primary dropdown-toggle mx-1" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["usertable"]["userfullname"]; ?></a>
+                    <a class="btn btn-outline-primary dropdown-toggle mx-1" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["usertable"]["username"]; ?></a>
                     <!--nosotros estamos utilizando directo en aqui para update po ahora no...:-->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a href="" class="dropdown-item" data-toggle="modal" data-target="#updateModal">Update</a>

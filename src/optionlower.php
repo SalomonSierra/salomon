@@ -27,7 +27,7 @@
       </div>
       <br>
       <div class="from-group">
-        <label for="userdesc">User Description</label>
+        <label for="userdesc">University</label>
         <input type="text" name="userdesc" class="form-control" id="userdesc" value="<?php echo $a["userdesc"]; ?>">
       </div>
       <div class="from-group">

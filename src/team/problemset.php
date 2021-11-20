@@ -68,21 +68,6 @@ if (count($prob) == 0) echo "<br><center><b><font color=\"#ff0000\">NO HAY PROBL
 <?php
 //para problemas
 if(isset($_GET["idproblem"])){
-	//echo $prob[$_GET["idproblem"]]["descfilename"];
-	//$c = DBConnect();
-	//DBExec($c, "begin work");
-	//chmod($prob[$_GET["idproblem"]]["descfilename"], 0755);
-	//$file='datoss.txt';
-	//if (!copy($prob[$_GET["idproblem"]]["descfilename"], 'datoss.txt')) {
-    //	echo "Error al copiar $fichero...\n";
-	//}
-	//pg_lo_export ($c, $prob[$_GET["idproblem"]]["descoid"],"fileee.txt");
-	//$file=$prob[$_GET["idproblem"]]["descfilename"];
-	//echo filetype($file);
-	//echo mime_content_type('../file.txt');
-	//echo "<embed type=\"text/plain\" src=\"".$file."\" width=\"300\" height=\"300\">";
-	//DBExec($c, "commit work");
-	//DBClose($c);
 ?>
 <!--dentro del if-->
 
@@ -115,14 +100,14 @@ let archivo='file.php';
 </html>
 <script language="JavaScript" src="../sha256.js"></script>
 <script language="JavaScript" src="../hex.js"></script>
-
+<?php include '../updateform.php';?>
 <script>
 function enviar(problem){
 	var problem = $('#problemnumber'+problem).val();
 	var language = $('#language'+problem).val();
 	var source = String($('#sourcefile'+problem).val());
 
-	
+
 
 	if(problem != '' && language != -1 ){//&& source.length > 1
 
@@ -177,67 +162,4 @@ function enviar(problem){
     });*/
 }
 
-
-$(document).ready(function(){
-
-     //update
-     $('#update_button').click(function(){
-		 var username,userdesc,userfull,passHASHo,passHASHn;
-		 if($('#passwordn1').val() != $('#passwordn2').val()){
-			 alert('password confirmacion debe ser igual');
-		 }else{
-			 if($('#passwordn1').val() == $('#passwordo').val()){
-				 alert('password nuevo debe ser diferente al anterior');
-			 }else{
-				 username = $('#username').val();
-				 userdesc = $('#userdesc').val();
-				 userfull = $('#userfull').val();
-				 passHASHo = js_myhash(js_myhash($('#passwordo').val())+'<?php echo session_id(); ?>');
-				 passHASHn = bighexsoma(js_myhash($('#passwordn2').val()),js_myhash($('#passwordo').val()));
-				 $('#passwordn1').val('                                                     ');
-				 $('#passwordn2').val('                                                     ');
-				 $('#passwordo').val('                                                     ');
-
-				 $.ajax({
-
-						  url:"../include/i_optionlower.php",
-						  method:"POST",
-						  data: {username:username, userdesc:userdesc, userfullname:userfull, passwordo:passHASHo, passwordn:passHASHn},
-
-						  success:function(data)
-						  {
-							   //alert(data);
-							   if(data.indexOf('Data updated.') !== -1)
-							   {
-									alert("Data updated.");
-									$('#updateModal').hide();
-									location.reload();
-							   }
-							   else
-							   {
-								   if (data.indexOf('Incorrect password')!== -1) {
-									   alert("Incorrect password");
-
-									   //location.href="../indexs.php";
-								   }else{
-									   alert(data);
-								   }
-
-							   }
-
-						  }
-				 });
-
-
-
-
-			 }
-		 }
-
-
-
-     });
-
-
-});
 </script>

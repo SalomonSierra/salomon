@@ -143,6 +143,7 @@ if(function_exists("globalconf") && function_exists("sanitizeVariables")){
                       <div class="from-group">
                         <input type="text" name="name" id="name" class="form-control" value="" placeholder="Username or Email">
                       </div>
+
                       <br>
                       <div class="from-group">
                         <input type="password" name="password" id="password" class="form-control" value="" placeholder="Password">
