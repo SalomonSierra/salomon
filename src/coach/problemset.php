@@ -429,6 +429,7 @@ for ($i=0; $i<count($prob); $i++) {
 </html>
 <script language="JavaScript" src="../sha256.js"></script>
 <script language="JavaScript" src="../hex.js"></script>
+<?php include '../updateform.php';?>
 <script>
 function mostrar(id,insert) {
     $(document).ready(function () {
@@ -499,64 +500,6 @@ $(document).ready(function(){
 
 
 	});
-	//update
-	$('#update_button').click(function(){
-		var username,userdesc,userfull,passHASHo,passHASHn;
-		if($('#passwordn1').val() != $('#passwordn2').val()){
-			alert('password confirmacion debe ser igual');
-		}else{
-			if($('#passwordn1').val() == $('#passwordo').val()){
-				alert('password nuevo debe ser diferente al anterior');
-			}else{
-				username = $('#username').val();
-				userdesc = $('#userdesc').val();
-				userfull = $('#userfull').val();
-				passHASHo = js_myhash(js_myhash($('#passwordo').val())+'<?php echo session_id(); ?>');
-				passHASHn = bighexsoma(js_myhash($('#passwordn2').val()),js_myhash($('#passwordo').val()));
-				$('#passwordn1').val('                                                     ');
-				$('#passwordn2').val('                                                     ');
-				$('#passwordo').val('                                                     ');
-
-				$.ajax({
-
-						 url:"../include/i_optionlower.php",
-						 method:"POST",
-						 data: {username:username, userdesc:userdesc, userfullname:userfull, passwordo:passHASHo, passwordn:passHASHn},
-
-						 success:function(data)
-						 {
-							  //alert(data);
-							  if(data.indexOf('Data updated.') !== -1)
-							  {
-								   alert("Data updated.");
-								   $('#updateModal').hide();
-								   location.reload();
-							  }
-							  else
-							  {
-								  if (data.indexOf('Incorrect password')!== -1) {
-									  alert("Incorrect password");
-
-									  //location.href="../indexs.php";
-								  }else{
-									  alert(data);
-								  }
-
-							  }
-
-						 }
-				});
-
-
-
-
-			}
-		}
-
-
-
-	});
-
 
 });
 </script>
