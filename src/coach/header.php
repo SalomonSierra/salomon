@@ -56,7 +56,7 @@ if(!isset($_POST['noflush'])){
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-md navbar-light bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
           <div class="container">
 
 
@@ -66,16 +66,23 @@ if(!isset($_POST['noflush'])){
 
             <div class="collapse navbar-collapse"id="first">
 
-              <a class="navbar-brand text-primary"href="index.php">
+              <a class="navbar-brand"href="index.php">
 
                 Salomon
               </a>
               <ul class="navbar-nav mr-auto">
 
-
-                <li class="nav-item"> <a class="nav-link text-primary" href="contest.php">Competencia</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="status.php">Status</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="problemset.php">Problem set</a> </li>
+                  <style media="screen">
+                    .font:hover{
+                        background:#53534F;
+                        border: 1px solid #1161BO;
+                        border-radius: 4px;
+                        color:#EAEAE4 !important;
+                    }
+                </style>
+                <li class="nav-item font"> <strong><a class="nav-link active" href="contest.php">Competencia</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link active" href="status.php">Status</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link active" href="problemset.php">Problem set</a></strong> </li>
 
                 <!--
                 <li class="nav-item"> <a class="nav-link text-primary" href="../index.php">Answers</a> </li>

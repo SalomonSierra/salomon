@@ -56,13 +56,20 @@ if($_SESSION["usertable"]["usertype"] != "admin"){//system
               </a>
               <ul class="navbar-nav mr-auto">
 
-
-                <li class="nav-item"> <a class="nav-link text-primary" href="contest.php">Competencia</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="status.php">Status</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="user.php">Usuarios</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="problemset.php">Problem set</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="language.php">Lenguajes</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="log.php">Registros</a> </li>
+                  <style media="screen">
+                    .font:hover{
+                        background:#CDE9BA;
+                        border: 1px solid #1161BO;
+                        border-radius: 4px;
+                        color:#EAEAE4 !important;
+                    }
+                </style>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="contest.php">Competencia</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="status.php">Status</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="user.php">Usuarios</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="problemset.php">Problem set</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="language.php">Lenguajes</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="log.php">Registros</a></strong></li>
                 <!--
                 <li class="nav-item"> <a class="nav-link text-primary" href="option.php">Options</a> </li>
                 <li class="nav-item"> <a class="nav-link text-primary" href="../index.php">Logout</a> </li>index.php-->
