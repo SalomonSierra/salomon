@@ -225,12 +225,12 @@ if($_SESSION["usertable"]["usertype"] != "team"){
 
                      <?php
                         if($contestinfo["usernumber"]==$_SESSION["usertable"]["usernumber"]){
-                            echo "<li class=\"nav-item\"> <a class=\"nav-link text-primary\" href=\"problemcontest.php?contest=".$_SESSION["usertable"]["contestnumber"]."\">Problemas set</a> </li>";
+                            echo "<li class=\"nav-item\"> <strong><a class=\"nav-link text-primary\" href=\"problemcontest.php?contest=".$_SESSION["usertable"]["contestnumber"]."\">Problemas set</a></strong> </li>";
                         }
                       ?>
-                    <li class="nav-item"> <a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a> </li>
-                    <li class="nav-item"> <a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Envios</a> </li><!---->
-                    <li class="nav-item"> <a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Score</a> </li><!--index.php-->
+                    <li class="nav-item"> <strong><a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a></strong> </li>
+                    <li class="nav-item"> <strong><a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Envios</a></strong> </li><!---->
+                    <li class="nav-item"> <strong><a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Score</a></strong> </li><!--index.php-->
                     <!--<li class="nav-item"> <a class="nav-link text-primary" href="user.php">Clarifications</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="problem.php">Tasks</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="../index1.php">Backups</a> </li>-->

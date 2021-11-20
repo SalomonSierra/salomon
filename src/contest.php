@@ -30,21 +30,35 @@ require('header.php');
 //$prob = DBGetProblemsGlobal($_SESSION["usertable"]["contestnumber"]);
 $ct = DBContestInfoAll();
 $ac=DBGetActiveContest();
+$pu="<span class=\"text-primary\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-unlock-fill\" viewBox=\"0 0 16 16\">
+  <path d=\"M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z\"/>
+</svg> </span>";
+$pi="<span class=\"text-danger\"> <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-lock-fill\" viewBox=\"0 0 16 16\">
+  <path d=\"M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z\"/>
+</svg> </span>";
 for ($i=0; $i<count($ct); $i++) {
 	//-1000000000
 	list($clockstr,$clocktype)=siteclock2($ct[$i]["number"]);
+	$p="";
 	if($clocktype==-1000000000){
 		echo " <tr class=\"d-flex table-secondary\">\n";
+		if($ct[$i]["private"]=='f'){
+			$p=$pu;
+		}else{
+			$p=$pi;
+		}
 	}else{
 		if($ct[$i]["private"]=='f'){
 			echo " <tr class=\"d-flex table-success\">\n";
+			$p=$pu;
 		}else{
 			echo " <tr class=\"d-flex table-warning\">\n";
+			$p=$pi;
 		}
 	}
 
 //  echo "  <td nowrap>" . $prob[$i]["number"] . "</td>\n";
-  echo "  <td class=\"col-1\">" .$ct[$i]["number"]."</td>\n";
+  echo "  <td class=\"col-1\">" .$p.$ct[$i]["number"]."</td>\n";
   echo "  <td class=\"col-5\"><a href=\"#\" data-toggle=\"modal\"data-target=\"#loginModal\">" . $ct[$i]["name"] . "&nbsp;</a></td>\n";
 
   echo "  <td class=\"col-3\">" . $clockstr . "&nbsp;</td>\n";

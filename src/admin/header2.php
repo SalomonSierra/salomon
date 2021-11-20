@@ -110,12 +110,12 @@ if(!isset($_POST['noflush'])){
                 Salomon
               </a>
               <ul class="navbar-nav mr-auto">
+                  
+                <li class="nav-item"> <strong><a class="nav-link text-primary" href="problemcontest.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problem set</a></strong> </li>
 
-                <li class="nav-item"> <a class="nav-link text-primary" href="problemcontest.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problem set</a> </li>
-
-                <li class="nav-item"> <a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Ejecuciones</a> </li>
-                <li class="nav-item"> <a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Score</a> </li>
+                <li class="nav-item"> <strong><a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a></strong> </li>
+                <li class="nav-item"> <strong><a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Ejecuciones</a></strong> </li>
+                <li class="nav-item"> <strong><a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Score</a></strong> </li>
 
 
 
