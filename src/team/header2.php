@@ -222,15 +222,22 @@ if($_SESSION["usertable"]["usertype"] != "team"){
                     Salomon
                   </a>
                   <ul class="navbar-nav mr-auto">
-
+                      <style media="screen">
+                        .font:hover{
+                            background:#CDE9BA;
+                            border: 1px solid #1161BO;
+                            border-radius: 4px;
+                            color:#EAEAE4 !important;
+                        }
+                    </style>
                      <?php
                         if($contestinfo["usernumber"]==$_SESSION["usertable"]["usernumber"]){
-                            echo "<li class=\"nav-item\"> <strong><a class=\"nav-link text-primary\" href=\"problemcontest.php?contest=".$_SESSION["usertable"]["contestnumber"]."\">Problemas set</a></strong> </li>";
+                            echo "<li class=\"nav-item font\"> <strong><a class=\"nav-link text-primary\" href=\"problemcontest.php?contest=".$_SESSION["usertable"]["contestnumber"]."\">Problemas set</a></strong> </li>";
                         }
                       ?>
-                    <li class="nav-item"> <strong><a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a></strong> </li>
-                    <li class="nav-item"> <strong><a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Envios</a></strong> </li><!---->
-                    <li class="nav-item"> <strong><a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Score</a></strong> </li><!--index.php-->
+                    <li class="nav-item font"> <strong><a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a></strong> </li>
+                    <li class="nav-item font"> <strong><a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Envios</a></strong> </li><!---->
+                    <li class="nav-item font"> <strong><a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"];  ?>">Score</a></strong> </li><!--index.php-->
                     <!--<li class="nav-item"> <a class="nav-link text-primary" href="user.php">Clarifications</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="problem.php">Tasks</a> </li>
                     <li class="nav-item"> <a class="nav-link text-primary" href="../index1.php">Backups</a> </li>-->

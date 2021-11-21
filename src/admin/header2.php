@@ -110,12 +110,20 @@ if(!isset($_POST['noflush'])){
                 Salomon
               </a>
               <ul class="navbar-nav mr-auto">
-                  
-                <li class="nav-item"> <strong><a class="nav-link text-primary" href="problemcontest.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problem set</a></strong> </li>
+                  <style media="screen">
+                    .font:hover{
+                        background:#CDE9BA;
+                        border: 1px solid #1161BO;
+                        border-radius: 4px;
+                        color:#EAEAE4 !important;
+                    }
+                </style>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="problemcontest.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problem set</a></strong> </li>
 
-                <li class="nav-item"> <strong><a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a></strong> </li>
-                <li class="nav-item"> <strong><a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Ejecuciones</a></strong> </li>
-                <li class="nav-item"> <strong><a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Score</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="problem.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Problemas</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="run.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Ejecuciones</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="score.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Score</a></strong> </li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="report.php?contest=<?php echo $_SESSION["usertable"]["contestnumber"]; ?>">Reportes</a></strong> </li>
 
 
 
