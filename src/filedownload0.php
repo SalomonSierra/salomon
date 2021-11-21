@@ -1,5 +1,5 @@
 <?php
-ob_start();
+//ob_start();
 session_start();
 require_once("globals.php");
 
@@ -16,7 +16,8 @@ $ex = escapeshellcmd($file);
 $text=shell_exec("./".$file." 2>&1");
 //echo "(".$text.")"
 if(!$text)
-	ob_end_flush();
+	exit;
+	//ob_end_flush();
 else{
 
 	$fileName = trim(basename($text));
@@ -77,10 +78,11 @@ else{
 
 
 
-
-		ob_end_flush();
+		exit;
+		//ob_end_flush();
 	}else{
-		ob_end_flush();
+		exit;
+		//ob_end_flush();
 	}
 }
 
