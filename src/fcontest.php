@@ -329,6 +329,7 @@ function DBAllUserNames($contest=-1) {
 
 	return $a;
 }
+
 //seleccion la todos los usuario de la base de datos si pasa sitio de ese
 function DBAllUserInfo() {
 

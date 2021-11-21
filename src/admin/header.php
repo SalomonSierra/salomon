@@ -70,6 +70,7 @@ if($_SESSION["usertable"]["usertype"] != "admin"){//system
                 <li class="nav-item font"> <strong><a class="nav-link text-primary" href="problemset.php">Problem set</a></strong> </li>
                 <li class="nav-item font"> <strong><a class="nav-link text-primary" href="language.php">Lenguajes</a></strong> </li>
                 <li class="nav-item font"> <strong><a class="nav-link text-primary" href="log.php">Registros</a></strong></li>
+                <li class="nav-item font"> <strong><a class="nav-link text-primary" href="backup.php">Backup</a></strong></li>
                 <!--
                 <li class="nav-item"> <a class="nav-link text-primary" href="option.php">Options</a> </li>
                 <li class="nav-item"> <a class="nav-link text-primary" href="../index.php">Logout</a> </li>index.php-->

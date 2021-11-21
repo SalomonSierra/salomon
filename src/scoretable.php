@@ -268,11 +268,11 @@ if($redo) {
 	}
 	if($hor>=0) {
         //A partir de $ hor minutos. Próximo:
-		$strtmp .= "<center>As of $hor minutes. Next: ";
+		$strtmp .= "<center>A partir $hor minutos. Próximo: ";
 		for($h=-30; $h<40; $h+=10) {
 			if($hor+$h>=0 && $h!=0) {
                 //
-				$strtmp .= "<a href=\"$loc/admin/report/score.php?p=0&hor=" . ($hor+$h) . "\">";
+				$strtmp .= "<a href=\"$loc/report/score.php?p=0&hor=" . ($hor+$h) . "\">";
 				if($h>0) $strtmp .= "+";
 				$strtmp .= "$h</a>&nbsp;";
 			}
@@ -364,21 +364,7 @@ if($redo) {
 			}else{
 				$strtmp .= "<td>" . $cg2 . "</td>\n";
 			}
-/*
-		if($level>3 && !$final &&
-		   ((isset($_SESSION["scorepos"][$score[$e]["username"]."-".$score[$e]["site"]]) &&
-			 $_SESSION["scorepos"][$score[$e]["username"]."-".$score[$e]["site"]] > $cg2) ||
-			(isset($_SESSION["scoreblink"][$score[$e]["username"]."-".$score[$e]["site"]]) &&
-			 $_SESSION["scoreblink"][$score[$e]["username"]."-".$score[$e]["site"]]>time()))) {
-			$strtmp .= "  <td nowrap bgcolor=\"#b0b0a0\">" . $score[$e]["username"]."/".$score[$e]["site"];
-			$strtmp .= "<td bgcolor=\"#b0b0a0\">" . $score[$e]["userfullname"];
-			if(!isset($_SESSION["scoreblink"][$score[$e]["username"]."-".$score[$e]["site"]]) ||
-				$_SESSION["scoreblink"][$score[$e]["username"]."-".$score[$e]["site"]]==0) {
-				$_SESSION["scoreblink"][$score[$e]["username"]."-".$score[$e]["site"]] = time()+1;
-			}
-		}
-		else {
-*/
+
 			$_SESSION["scoreblink"][$score[$e]["username"]]=0;
 			if( $score[$e]["userflag"] != '')
 			  $strtmp .= "  <td nowrap><img alt=\"" .  $score[$e]["userflag"]. "\" width=\"18\" src=\"" . $loc. '/images/flags/' .
