@@ -309,7 +309,7 @@ if (count($cs) == 0) echo "<br><center><b><font color=\"#ff0000\">NO HAY COMPETE
 
 		</div>
         <div class="form-group form-check">
-			<label class="form-check-label" for="activeresult">Ver respuestas</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label class="form-check-label" for="activeresult">Aportación de Pistas</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<?php
 				if ($ct["contestactiveresult"] == "t")
 					echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"activeresult\" id=\"activeresult\" checked value=\"t\" />";
