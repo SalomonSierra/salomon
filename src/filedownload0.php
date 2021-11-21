@@ -39,8 +39,8 @@ else{
 		    header('Content-Length: '.$size);
 		    header('Content-Disposition: attachment;filename="'.basename($filename).'"');
 
-		    if($size > $chunksize)
-		    {
+		    //if($size > $chunksize)
+		    //{
 		        $handle = fopen($filename, 'rb');
 
 		        while (!feof($handle))
@@ -52,8 +52,8 @@ else{
 		        }
 
 		        fclose($handle);
-		    }
-		    else readfile($path);
+		    //}
+		    //else readfile($path);
 			@unlink("../tools/".$fileName);
 		    exit;
 		}
