@@ -29,8 +29,11 @@ else{
 		header ("Content-transfer-encoding: binary\n");
 		header ("Content-type: application/force-download");
 		header ("Content-Disposition: attachment; filename=" . basename($fileName));
-
-		readfile("../tools/".$fileName);
+		$gestor=fopen("../tools/".$fileName,"r");
+		$contenido=fread($gestor,filesize("../tools/".$fileName));
+		echo $contenido;
+		fclose($gestor);
+		//readfile("../tools/".$fileName);
 		@unlink("../tools/".$fileName);
 		ob_end_flush();
 	}else{
