@@ -576,6 +576,9 @@ echo $strtmp;
 <script language="JavaScript" src="../sha256.js"></script>
 <script language="JavaScript" src="../hex.js"></script>
 <?php include '../updateform.php';?>
+<script>
+
+</script>
 <!--para editor de codigo-->
 <script type="text/javascript">
     var editor=CodeMirror.fromTextArea
@@ -594,26 +597,26 @@ echo $strtmp;
 
     });
     //editor.setSize("800","350");
-</script>
-<script>
-function leerArchivo(e) {
-  var archivo = e.target.files[0];
-  if (!archivo) {
-    return;
-  }
-  var lector = new FileReader();
-  lector.onload = function(e) {
-    var contenido = e.target.result;
-    mostrarContenido(contenido);
-  };
-  lector.readAsText(archivo);
-}
 
-function mostrarContenido(contenido) {
-  var elemento = document.getElementById('textsource');
-  elemento.innerHTML = contenido;
-}
+    function leerArchivo(e) {
+      var archivo = e.target.files[0];
+      if (!archivo) {
+        return;
+      }
+      var lector = new FileReader();
+      lector.onload = function(e) {
+        var contenido = e.target.result;
+        mostrarContenido(contenido);
+      };
+      lector.readAsText(archivo);
+    }
 
-document.getElementById('sourcefile').addEventListener('change', leerArchivo, false);
+    function mostrarContenido(contenido) {
+      editor.setValue(contenido);
+      //var elemento = document.getElementById('textsource');
+      //elemento.innerHTML = contenido;
+    }
+
+    document.getElementById('sourcefile').addEventListener('change', leerArchivo, false);
 
 </script>

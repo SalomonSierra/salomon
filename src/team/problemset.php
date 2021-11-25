@@ -132,6 +132,7 @@ function enviar(problem){
 					 //location.reload();
 					 location.href="status.php";
 				 }else {
+					 alert(data);
 					  if(data == "No"){
 						  alert("Error al subir");
 						  $('#enviar'+problem).hide();
