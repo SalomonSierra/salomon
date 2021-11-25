@@ -5,6 +5,7 @@ require_once("../db.php");
 if(isset($_POST["problemnumber"]) && is_numeric($_POST["problemnumber"])&& isset($_POST["language"]) && is_numeric($_POST["language"])){
     $prob=$_POST["problemnumber"];
     $lang=$_POST["language"];
+    
     if((isset($_FILES["sourcefile"]) && $_FILES["sourcefile"]["name"]!="") || (isset($_POST["textsource"]) && $_POST["textsource"]!='')){
         if(($ct = DBContestInfo($_SESSION["usertable"]["contestnumber"])) == null) {
              echo "no esta logueado o no hay competencias iniciales";

@@ -63,25 +63,8 @@
 </div>
 
 <script language="javascript">
-//para textarea
-document.getElementById('sourcefile'+"<?php echo $prob[$i]["number"]; ?>").addEventListener('change', function(e){
-
-    var archivo = e.target.files[0];
-    if (!archivo) {
-      return;
-    }
-    var lector = new FileReader();
-    lector.onload = function(e) {
-      var contenido = e.target.result;
-      var elemento = document.getElementById('textsource'+"<?php echo $prob[$i]["number"]; ?>");
-      elemento.innerHTML = contenido;
-    };
-    lector.readAsText(archivo);
-
-}, false);
-
-var editor=CodeMirror.fromTextArea
-(document.getElementById('textsource'+"<?php echo $prob[$i]["number"]; ?>"),{
+/*CodeMirror.fromTextArea
+(document.getElementById('textsource'+"<?php //echo $prob[$i]["number"]; ?>"),{
     mode: "text/groovy",    // Darse cuenta de resaltado de código maravilloso
 
     mode: "text/x-c++src", // Darse cuenta del resaltado de código C
@@ -94,7 +77,25 @@ var editor=CodeMirror.fromTextArea
     matchBrackets: true    // Correspondencia de corchetes
     // readOnly: true, // solo lectura
 
-});
+});*/
 //editor.setSize("300","300");
-editor.setValue("\n\n\n\n\n\n\n\n\n");
+//editor.setValue("\n\n\n\n\n\n\n\n\n");
+//para textarea
+document.getElementById('sourcefile'+"<?php echo $prob[$i]["number"]; ?>").addEventListener('change', function(e){
+
+    var archivo = e.target.files[0];
+    if (!archivo) {
+      return;
+    }
+    var lector = new FileReader();
+    lector.onload = function(e) {
+      var contenido = e.target.result;
+      //editor.setValue(contenido);
+      var elemento = document.getElementById('textsource'+"<?php echo $prob[$i]["number"]; ?>");
+      elemento.innerHTML = contenido;
+    };
+    lector.readAsText(archivo);
+
+}, false);
+
 </script>
