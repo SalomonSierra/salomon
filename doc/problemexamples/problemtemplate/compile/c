@@ -1,22 +1,5 @@
 #!/bin/bash
-# ////////////////////////////////////////////////////////////////////////////////
-# //BOCA Online Contest Administrator
-# //    Copyright (C) 2003-2014 by BOCA System (bocasystem@gmail.com)
-# //
-# //    This program is free software: you can redistribute it and/or modify
-# //    it under the terms of the GNU General Public License as published by
-# //    the Free Software Foundation, either version 3 of the License, or
-# //    (at your option) any later version.
-# //
-# //    This program is distributed in the hope that it will be useful,
-# //    but WITHOUT ANY WARRANTY; without even the implied warranty of
-# //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# //    GNU General Public License for more details.
-# //    You should have received a copy of the GNU General Public License
-# //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# ////////////////////////////////////////////////////////////////////////////////
-#Last modified: 21/august/2014 by cassio@ime.usp.br
-#
+# Fabians7 script of compile
 # parameters are:
 # $1 source_file
 # $2 exe_file (default run.exe)
@@ -36,7 +19,7 @@
 # 7 memory limit exceeded
 # 8 security threat
 # 9 runtime error
-# other_codes are unknown to boca: in this case BOCA will present the
+# other_codes are unknown to salomon: in this case salomon will present the
 #                                  last line of standard output to the judge
 
 umask 0022

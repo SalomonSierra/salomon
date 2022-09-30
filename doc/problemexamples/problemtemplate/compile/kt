@@ -1,22 +1,5 @@
 #!/bin/bash
-# ////////////////////////////////////////////////////////////////////////////////
-# //BOCA Online Contest Administrator
-# //    Copyright (C) 2003-2012 by BOCA System (bocasystem@gmail.com)
-# //
-# //    This program is free software: you can redistribute it and/or modify
-# //    it under the terms of the GNU General Public License as published by
-# //    the Free Software Foundation, either version 3 of the License, or
-# //    (at your option) any later version.
-# //
-# //    This program is distributed in the hope that it will be useful,
-# //    but WITHOUT ANY WARRANTY; without even the implied warranty of
-# //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# //    GNU General Public License for more details.
-# //    You should have received a copy of the GNU General Public License
-# //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# ////////////////////////////////////////////////////////////////////////////////
-#Last modified: 21/july/2012 by cassio@ime.usp.br
-#
+# Fabians7 script of compile 2021
 # parameters are:
 # $1 source_file
 # $2 exe_file (default run.jar)
@@ -36,7 +19,7 @@
 # 7 memory limit exceeded
 # 8 security threat
 # 9 runtime error
-# other_codes are unknown to boca: in this case BOCA will present the
+# other_codes are unknown to salomon: in this case salomon will present the
 #                                  last line of standard output to the judge
 
 umask 0022
@@ -49,17 +32,17 @@ if [ ! -r "$1" ]; then
     echo "$1 not found or it's not readable"
     exit 44
 fi
-id -u bocajail >/dev/null 2>/dev/null
+id -u salomonjail >/dev/null 2>/dev/null
 if [ $? == 0 ]; then
-	bocau=`id -u bocajail`
-	bocag=`id -g bocajail`
-	chown bocajail.nogroup .
+	salomonu=`id -u salomonjail`
+	salomong=`id -g salomonjail`
+	chown salomonjail.nogroup .
 else
-	bocau=`id -u nobody`
-	bocag=`id -g nobody`
+	salomonu=`id -u nobody`
+	salomong=`id -g nobody`
 	chown nobody.nogroup .
 fi
-if [ "$bocau" == "" -o "$bocag" == "" ]; then
+if [ "$salomonu" == "" -o "$salomong" == "" ]; then
 	echo "error finding user to run script"
 	exit 43
 fi
@@ -75,7 +58,7 @@ if [ "${name##*.}" == "zip" -a "${name##*.}" == "ZIP" ]; then
 else
 	cp "$name" src
 fi
-chown -R $bocau src
+chown -R $salomonu src
 chmod -R 700 src
 
 # this script makes use of safeexec to execute the code with less privilegies
@@ -133,7 +116,7 @@ chmod 755 compileit.sh
 
 echo "COMPILATION IS NOT BEING CHROOTED -- THIS IS NOT AN IDEAL SETTING"
 #$kotlinc "$name"
-$sf -r1 -t20 -T32 -istdin0 -F512 -u512 -U$bocau -G$bocag -n0 -C. -d40000000000 -m40000000000 ./compileit.sh
+$sf -r1 -t20 -T32 -istdin0 -F512 -u512 -U$salomonu -G$salomong -n0 -C. -d40000000000 -m40000000000 ./compileit.sh
 #./compileit.sh
 ret=$?
 if [ -f "stdout0" ]; then

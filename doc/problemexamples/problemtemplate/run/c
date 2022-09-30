@@ -1,22 +1,5 @@
 #!/bin/bash
-# ////////////////////////////////////////////////////////////////////////////////
-# //BOCA Online Contest Administrator
-# //    Copyright (C) 2003-2014 by BOCA System (bocasystem@gmail.com)
-# //
-# //    This program is free software: you can redistribute it and/or modify
-# //    it under the terms of the GNU General Public License as published by
-# //    the Free Software Foundation, either version 3 of the License, or
-# //    (at your option) any later version.
-# //
-# //    This program is distributed in the hope that it will be useful,
-# //    but WITHOUT ANY WARRANTY; without even the implied warranty of
-# //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# //    GNU General Public License for more details.
-# //    You should have received a copy of the GNU General Public License
-# //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# ////////////////////////////////////////////////////////////////////////////////
-#Last modified: 21/aug/2014 by cassio@ime.usp.br
-#
+# Fabians7 script of run
 # parameters are:
 # $1 exe_file
 # $2 input_file
@@ -38,21 +21,21 @@
 # 7 memory limit exceeded
 # 8 security threat
 # 9 runtime error
-# other_codes are unknown to boca: in this case BOCA will present the
+# other_codes are unknown to salomon: in this case salomon will present the
 #                                  last line of standard output to the judge
 
 umask 0022
-id -u bocajail >/dev/null 2>/dev/null
+id -u salomonjail >/dev/null 2>/dev/null
 if [ $? == 0 ]; then
-	bocau=`id -u bocajail`
-	bocag=`id -g bocajail`
-	chown bocajail.nogroup .
+	salomonu=`id -u salomonjail`
+	salomong=`id -g salomonjail`
+	chown salomonjail.nogroup .
 else
-	bocau=`id -u nobody`
-	bocag=`id -g nobody`
+	salomonu=`id -u nobody`
+	salomong=`id -g nobody`
 	chown nobody.nogroup .
 fi
-if [ "$bocau" == "" -o "$bocag" == "" ]; then
+if [ "$salomonu" == "" -o "$salomong" == "" ]; then
 	echo "error finding user to run script"
 	exit 43
 fi
@@ -117,7 +100,7 @@ fi
 
 cdir=`pwd`
 echo "Current directory is $cdir -- chrooting on it" >&2
-"$sf" -F10 -f$maxf -r$nruns -n1 -R$cdir -C. -U$bocau -G$bocag -ostdout0 -estderr0 -d$maxm -m$maxm -t$time -T$ttime -istdin0 ./run.exe
+"$sf" -F10 -f$maxf -r$nruns -n1 -R$cdir -C. -U$salomonu -G$salomong -ostdout0 -estderr0 -d$maxm -m$maxm -t$time -T$ttime -istdin0 ./run.exe
 ret=$?
 if [ $ret -gt 10 ]; then
 	ret=0

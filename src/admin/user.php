@@ -36,6 +36,10 @@ if (isset($_POST["username"]) && isset($_POST["userfullname"]) && isset($_POST["
     isset($_POST["usernumber"]) && isset($_POST["userenabled"]) &&
     isset($_POST["usermultilogin"]) && isset($_POST["usertype"]) && isset($_POST["confirmation"]) &&
     isset($_POST["passwordn1"]) && isset($_POST["passwordn2"]) && isset($_POST["passwordo"]) && $_POST["confirmation"] == "confirm") {
+	if(trim($_POST["useremail"])==''){
+		MSGError('Email Es obligatorio');
+		ForceLoad("user.php");
+	}
 	$param['user'] = htmlspecialchars($_POST["usernumber"]);
 
 	$param['username'] = htmlspecialchars($_POST["username"]);
@@ -310,9 +314,9 @@ El archivo debe estar en el formato definido en el manual de administración.</b
       </div>
 
       <div class="form-group row">
-          <label for="userdescr" class="col-sm-4 col-form-label">University:</label>
+          <label for="userdesc" class="col-sm-4 col-form-label">University:</label>
           <div class="col-sm-8">
-              <input type="text" name="userdescr" id="userdescr" class="form-control" value="<?php if(isset($u)) {
+              <input type="text" name="userdesc" id="userdesc" class="form-control" value="<?php if(isset($u)) {
               if($u['usershortinstitution']!='')
                   echo '[' . $u['usershortinstitution'] .']';
               if($u['userflag']!='') {
