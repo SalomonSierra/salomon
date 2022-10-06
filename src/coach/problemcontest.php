@@ -3,7 +3,6 @@ if (!isset($_POST["confirmation"]) || $_POST["confirmation"] != "confirm")
 	unset($_POST['noflush']);
 
 require('header2.php');
-
 //retorna la informacion de la competencia en caso no retorna null
 
 if(($ct = DBContestInfo(0)) == null)
@@ -72,7 +71,6 @@ for ($i=0; $i<count($prob); $i++) {
 <div class="container">
 	<span class="text-success">PARA AÑADIR UN PROBLEMA A UNA COMPETENCIA, SIMPLEMENTE DAR CLICK EN EL BOTON "Añadir"</span>
 </div>
-
 <form name="form0" enctype="multipart/form-data" method="post" action="problem.php">
 	<table class="table table-bordered table-hover">
 	  <thead>
@@ -119,7 +117,7 @@ for ($i=0; $i<count($prob); $i++) {
 			     echo "  <td>" . $prob[$i]["fullname"] . "&nbsp;</td>\n";
 			     echo "  <td>" . $prob[$i]["basefilename"] . "&nbsp;</td>\n";
 
-			     if (isset($prob[$i]["descoid"]) && $prob[$i]["descoid"] != null && isset($prob[$i]["descfilename"])) {
+				 if (isset($prob[$i]["descoid"]) && $prob[$i]["descoid"] != null && isset($prob[$i]["descfilename"])) {
 					 //para descargar descripcion del archivo filedownload esta en globals.php
 					 //funcion para encriptar datos enviados devuelve dato encriptado tipo url &file=
 			  	     //echo "  <td> <a href=\"../filedownload.php?" . filedownload($prob[$i]["descoid"], $prob[$i]["descfilename"]) . "\">" .
@@ -197,7 +195,6 @@ for ($i=0; $i<count($prob); $i++) {
 <script language="JavaScript" src="../hex.js"></script>
 <?php include '../updateform.php';?>
 <script>
-
 //var valor=true;
 function save(problem,contest,data) {
 	//alert(data+" "+user+" "+contest);
@@ -224,8 +221,10 @@ function save(problem,contest,data) {
 			 {
 				  alert(data);
 
-
 			 }
 	});
 
+
 }
+
+</script>
